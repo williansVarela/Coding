@@ -1,4 +1,4 @@
-# Projeto Coding4Hope
+# Projeto
 Sistema de gestão desenvolvido para o terceiro setor
 **********
 
