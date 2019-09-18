@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # New Apps
     'core'
 ]
 
@@ -120,6 +122,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# User substitution
+# https://docs.djangoproject.com/en/1.11/topics/auth/customizing/#auth-custom-user
+
+AUTH_USER_MODEL = 'core.User'
+
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+#DATABASES = json.load(open(os.path.join(BASE_DIR,'config','databases.json')))

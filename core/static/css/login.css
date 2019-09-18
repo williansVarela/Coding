@@ -290,10 +290,14 @@ html {
     width:60%;
   }
 
+  #profile-img {
+    margin: 3em auto 2em;
+  }
+
   .profile-img-card {
     width: 96px;
     height: 96px;
-    margin: 2em auto 2em;
+    padding: 3em auto 2em;
     display: block;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
