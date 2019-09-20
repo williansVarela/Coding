@@ -11,19 +11,19 @@
     </div>
 
     <ul class="list-unstyled components">
-        <li class="active">
-            <a href="#">
+        <li class={{home_active}}>
+            <a href="{% url 'home' %}">
                 <i class="fas fa-home"></i>
                 <span class="toggle">Início</span>
             </a>
         </li>
-        <li>
+        <li class={{dashboard_active}}>
             <a href="#">
                 <i class="fas fa-chart-line"></i>
                 <span class="toggle">Dashboard</span>
             </a>
         </li>
-        <li>
+        <li class={{animals_active}}>
             <a href="#animalsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-paw"></i>
                 <span class="toggle">Animais</span>
@@ -40,7 +40,7 @@
                 </li>
             </ul>
         </li>
-        <li>
+        <li class={{volunteers_active}}>
             <a href="#volunteersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-hands-helping"></i>
                 <span class="toggle">Voluntários</span>
@@ -57,7 +57,7 @@
                 </li>
             </ul>
         </li>
-        <li>
+        <li class={{financial_active}}>
             <a href="#financialSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-hand-holding-usd"></i>
                 <span class="toggle">Financeiro</span>
@@ -74,7 +74,7 @@
                 </li>
             </ul>
         </li>
-        <li>
+        <li class={{contacts_active}}>
             <a href="#">
                 <i class="fas fa-address-book"></i>
                 <span class="toggle">Contatos</span>

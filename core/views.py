@@ -13,6 +13,7 @@ def home(request):
     context = {}
     context['pagina'] = 'Início'
     context['page_title'] = 'Home | Sistema de Gestão'
+    context['home_active'] = 'active'
 
     return render(request, 'index.html', context)
 
