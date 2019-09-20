@@ -10,7 +10,11 @@ class HomeView(RedirectView):
     template_name = 'index.html'
 
 def home(request):
-	return render(request, 'index.html')
+    context = {}
+    context['pagina'] = 'Início'
+    context['page_title'] = 'Home | Sistema de Gestão'
+
+    return render(request, 'index.html', context)
 
 class LoginView(FormView):
     template_name = 'login.html'

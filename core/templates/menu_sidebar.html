@@ -1,0 +1,84 @@
+<!-- Sidebar  -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        {% if user.is_superuser %}
+            <h3>Admin.</h3>
+            
+        {% else %}
+            
+        {% endif %}
+        <strong><i class="fas fa-user-circle"></i></strong>
+    </div>
+
+    <ul class="list-unstyled components">
+        <li class="active">
+            <a href="#">
+                <i class="fas fa-home"></i>
+                <span class="toggle">Início</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-chart-line"></i>
+                <span class="toggle">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a href="#animalsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-paw"></i>
+                <span class="toggle">Animais</span>
+            </a>
+            <ul class="collapse list-unstyled" id="animalsSubmenu">
+                <li>
+                    <a href="#">Page 1</a>
+                </li>
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#volunteersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-hands-helping"></i>
+                <span class="toggle">Voluntários</span>
+            </a>
+            <ul class="collapse list-unstyled" id="volunteersSubmenu">
+                <li>
+                    <a href="#">Page 1</a>
+                </li>
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#financialSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-hand-holding-usd"></i>
+                <span class="toggle">Financeiro</span>
+            </a>
+            <ul class="collapse list-unstyled" id="financialSubmenu">
+                <li>
+                    <a href="#">Page 1</a>
+                </li>
+                <li>
+                    <a href="#">Page 2</a>
+                </li>
+                <li>
+                    <a href="#">Page 3</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <i class="fas fa-address-book"></i>
+                <span class="toggle">Contatos</span>
+            </a>
+        </li>
+    </ul>
+</nav>

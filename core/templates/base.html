@@ -1,54 +1,98 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-	<nav class="navbar navbar-expand-lg navbar-light">
-	  <a class="navbar-brand" href="{% url 'blog:post_list' %}">Blog</a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-	  <div class="collapse navbar-collapse" id="navbarNav">
-	    <ul class="navbar-nav">
-	      <li class="nav-item">
-	        <a class="nav-link" href="{% url 'blog:about' %}">Sobre nós</a>
-	      </li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="{% url 'blog:contact' %}">Contato</a>
-				</li>
-				{% if user.is_authenticated %}
-				<li class="nav-item">
-						<a class="nav-link" href="{% url 'logout' %}">Sair</a>
-				</li>
-				{% else %}
-				<li class="nav-item">
-						<a class="nav-link" href="{% url 'login' %}">Login</a>
-				</li>
-				{% endif %}
-	    </ul>
-	  </div>
-	</nav>
-    <div class="row">
-				{% if user.is_authenticated %}
-					<p class="logged-in-p">
-						Olá {{ user.username }} seja bem vindo, o que deseja fazer hoje? 
-						<span class="sair"><a href="{% url 'logout' %}">Sair</a></span>
-					</p>
-				{% endif %}
-        {% block content %}
-        {% endblock %}
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>{{page_title}}</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    {% block ExtraHead %}
+
+    {% endblock %}
+
+    {% block css %}
+
+    {% endblock %}
+
+    {% block js %}
+
+    {% endblock %}
+</head>
+
+<body>
+
+	<div class="wrapper">
+
+		{% include 'menu_sidebar.html' %}
+
+		<!-- Page Content  -->
+		<div id="content">
+
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<div class="container-fluid">
+				
+					<button type="button" id="sidebarCollapse" class="btn btn-menu" aria-label="Alterna navegação">
+						<span style="font-size: 1.5em; color: #000;"><i class="fas fa-bars"></i></span>
+					</button>
+
+					<h2>Sistema de Gestão - {{ pagina }}</h2>
+					
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="nav navbar-nav ml-auto">
+							<li class="nav-item">
+								<a class="nav-link" href="#">Perfil</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{% url 'logout' %}">Sair</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			
+			{% block content %}
+
+			{% endblock %}
+		</div>
+	</div>
+
+	<footer class="footer">
+		{% block footer %}
+
+		{% endblock %}
+	</footer>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(".toggle").toggle();
+            });
+        });
+		
+    </script>
 </body>
+
 </html>

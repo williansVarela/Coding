@@ -47,9 +47,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Custom User model"""
 
     username = None
-    name = models.CharField(max_length=100, verbose_name='Name')
+    name = models.CharField(max_length=100, verbose_name='Nome')
     email = models.EmailField(_('email address'), unique=True)
-    birthdate = models.DateField(_('birth date'), null=True)
+    birthdate = models.DateField(null=True, verbose_name='Data de Nascimento')
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
