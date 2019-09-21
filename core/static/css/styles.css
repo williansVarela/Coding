@@ -265,3 +265,19 @@ a.article:hover {
         display: none;
     }
 }
+
+/* ---------------------------------------------------
+    MODAL STYLE
+----------------------------------------------------- */
+
+
+/* Conteúdo do Modal */
+.modal-content p{
+    color: #212529;
+    padding-left: 2rem;
+}
+
+.modal-content h3{
+    color: #212529;
+    padding-left: 2rem;
+}

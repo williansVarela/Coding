@@ -9,10 +9,10 @@
 
     <title>{{page_title}}</title>
 
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <!-- Custom CSS -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
     <!-- Font Awesome JS -->
@@ -23,10 +23,12 @@
 
     {% endblock %}
 
+    <!-- Extra CSS -->
     {% block css %}
 
     {% endblock %}
 
+    <!-- Extra JS -->
     {% block js %}
 
     {% endblock %}
@@ -54,7 +56,7 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav navbar-nav ml-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="#">Perfil</a>
+                                <button type="button" class="btn btn-link nav-link" data-toggle="modal" data-target="#profile-info">Perfil</button>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="{% url 'logout' %}">Sair</a>
@@ -67,6 +69,34 @@
 			{% block content %}
 
 			{% endblock %}
+
+            <!-- Profile Modal-->
+            <div class="modal fade" id="profile-info" role="dialog">
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h3 class="modal-title">Informações de Perfil</h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Nome:</strong> {{ user.name }}</p>
+                        <p><strong>E-mail:</strong> {{ user.email }}</p>
+                        <p><strong>Data de Nascimento:</strong> {{ user.date_of_birth }}</p>
+                        {% if user.is_admin %}
+                            <p><strong>Perfil de usuário:</strong> Administrador</p>
+                        {% else %}
+                            <p><strong>Perfil de usuário:</strong> Voluntário</p>
+                        {% endif%}
+                        <p><strong>Data de Registro:</strong> {{ user.date_joined }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info">Editar</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!-- End Profile Modal-->
 		</div>
 	</div>
 
@@ -79,9 +109,12 @@
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/index.js' %}"></script>
 
     <script type="text/javascript">
 

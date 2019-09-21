@@ -6,16 +6,17 @@ from django.contrib import messages
 from core.forms import LoginForm
 
 
-class HomeView(RedirectView):
+class HomeView(TemplateView):
     template_name = 'index.html'
 
-def home(request):
-    context = {}
-    context['pagina'] = 'Início'
-    context['page_title'] = 'Home | Sistema de Gestão'
-    context['home_active'] = 'active'
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['pagina'] = 'Início'
+        context['page_title'] = 'Home | Sistema de Gestão'
+        context['home_active'] = 'active'
 
-    return render(request, 'index.html', context)
+        return context
+
 
 class LoginView(FormView):
     template_name = 'login.html'
@@ -44,5 +45,4 @@ class LogoutView(RedirectView):
         logout(request)
         messages.add_message(self.request, messages.SUCCESS, 'User successfully logged out')
         return super(LogoutView, self).get(request, *args, **kwargs)
-
 
