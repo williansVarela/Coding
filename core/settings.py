@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # New Apps
-    'core'
+    'core',
+    'animal'
 ]
 
 MIDDLEWARE = [
