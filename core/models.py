@@ -46,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Custom User model"""
 
     username = None
-    name = models.CharField(max_length=100, verbose_name='Nome')
+    name = models.CharField(max_length=100, verbose_name='Nome Completo')
     email = models.EmailField(max_length=255, unique=True, verbose_name='Endereço de email')
     date_of_birth = models.DateField(null=True, verbose_name='Data de Nascimento')
     is_active = models.BooleanField(default=True, verbose_name='Perfil Ativo')
@@ -89,5 +89,5 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
 
     class Meta:
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuários'
