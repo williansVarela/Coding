@@ -9,7 +9,7 @@ Vamos usar o **Oracle Database XE 18c** local para ser nosso banco, para isso co
 ```
 Senha: 'root'
 ```
-A unica configuração necessária durante a instalação do Oracle XE é a senha, usaremos a senha 'root' como padrão para o ambiente de desensolvimento.
+A unica configuração necessária durante a instalação do Oracle XE é a senha, usaremos a senha 'root' como padrão para o ambiente de desenvolvimento.
 Com isso temos nosso banco local configurado. Para continuar a preparação do ambiente de desenvolvimento siga os seguintes passos:
 
 - **1)** Criar um **ambiente virtual** para desenvolvimento. Nossa linguagem será **Python 3.7.4 com Django 2.2.5**.
