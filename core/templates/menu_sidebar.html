@@ -1,11 +1,10 @@
 <!-- Sidebar  -->
 <nav id="sidebar">
     <div class="sidebar-header">
-        {% if user.is_superuser %}
+        {% if user.is_admin %}
             <h3>Admin.</h3>
-            
         {% else %}
-            
+            <h3>Voluntário</h3>
         {% endif %}
         <strong><i class="fas fa-user-circle"></i></strong>
     </div>

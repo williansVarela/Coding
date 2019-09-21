@@ -1,46 +1,45 @@
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
-from django.contrib.auth.models import AbstractUser, PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.core.mail import send_mail
 
 
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
-    use_in_migrations = True
-
-    def _create_user(self, email, password, **extra_fields):
-        """Create and save a User with the given email and password."""
-
+    def create_user(self, email, date_of_birth, password=None):
+        """
+        Creates and saves a User with the given email, date of
+        birth and password.
+        """
         if not email:
-            raise ValueError('User must have an email')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            date_of_birth=date_of_birth,
+        )
+
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        """Create and save a regular User with the given email and password."""
-
-        extra_fields.setdefault('is_staff', False)
-        extra_fields.setdefault('is_superuser', False)
-        
-        return self._create_user(email, password, **extra_fields)
-
-    def create_superuser(self, email, password, **extra_fields):
-        """Create and save a SuperUser with the given email and password."""
-
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
-        return self._create_user(email, password, **extra_fields)
+    def create_superuser(self, email, date_of_birth, password):
+        """
+        Creates and saves a superuser with the given email, date of
+        birth and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+            date_of_birth=date_of_birth,
+        )
+        user.is_admin = True
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -48,19 +47,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     username = None
     name = models.CharField(max_length=100, verbose_name='Nome')
-    email = models.EmailField(_('email address'), unique=True)
-    birthdate = models.DateField(null=True, verbose_name='Data de Nascimento')
-    is_staff = models.BooleanField(
-        _('staff status'),
-        default=False,
-        help_text=_('Designates whether the user can log into this admin site.'),
-    )
-
-    created_at = models.DateTimeField(verbose_name='Creation date', auto_now_add=True)
+    email = models.EmailField(max_length=255, unique=True, verbose_name='Endereço de email')
+    date_of_birth = models.DateField(null=True, verbose_name='Data de Nascimento')
+    is_active = models.BooleanField(default=True, verbose_name='Perfil Ativo')
+    is_admin = models.BooleanField(default=False, verbose_name='Administrador')
+    is_staff = models.BooleanField(default=False, verbose_name='Equipe')
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['date_of_birth']
+
+    def __str__(self):
+        return self.email
 
     def get_full_name(self):
         return self.name
@@ -71,6 +71,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     def email_user(self, subject, message, from_email=None, **kwargs):
         """Sends an email to this User."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+        
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        # Simplest possible answer: All admins are staff
+        return self.is_admin
 
     class Meta:
         verbose_name = 'User'
