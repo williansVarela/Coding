@@ -82,8 +82,9 @@ Para utilização de featutes específicas, deve-se implementar no nível da fol
 
 - **2** - No arquivo `core/settings.py`, adicione na variável INSTALLED_APPS:
 
-	`'[nome_do_app]',`
-  
-	`'[nome_do_app].[nome_do_subapp]',`
+```
+'[nome_do_app]',
+'[nome_do_app].[nome_do_subapp]',
+```
   
   
