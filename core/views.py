@@ -1,9 +1,10 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView, RedirectView, TemplateView
 from django.contrib import messages
-from core.forms import LoginForm
+from core.forms import LoginForm, UpdatePasswordForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class HomeView(TemplateView):
@@ -38,6 +39,7 @@ class LoginView(FormView):
         messages.add_message(self.request, messages.ERROR, 'Failed to authenticate')
         return super(LoginView, self).form_invalid(form)
 
+
 class LogoutView(RedirectView):
     url = reverse_lazy('login')
 
@@ -46,3 +48,22 @@ class LogoutView(RedirectView):
         messages.add_message(self.request, messages.SUCCESS, 'User successfully logged out')
         return super(LogoutView, self).get(request, *args, **kwargs)
 
+
+def change_password(request):
+    context = {'pagina': 'Perfil', 'page_title': 'Perfil | Alterar Senha'}
+
+    if request.method == 'POST':
+        form = UpdatePasswordForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Sua senha foi atualizada com sucesso!', extra_tags='alert alert-success')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Por favor corrija o erro acima.', extra_tags='alert alert-danger')
+    else:
+        form = UpdatePasswordForm(request.user)
+
+    context['form'] = form
+
+    return render(request, 'change_password.html', context)
