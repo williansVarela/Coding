@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include
-from django.contrib.auth.decorators import login_required
-from core.views import LoginView, HomeView, change_password
+from core.views import LoginView, HomeView, change_password, update_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('django.contrib.auth.urls')),
 
-    url(r'^$', login_required(HomeView.as_view()), name='home'),
+    url(r'^$', HomeView.as_view(), name='home'),
     url('login/', LoginView.as_view(), name='login'),
     url(r'profile/password/$', change_password, name='change_password'),
+    url(r'profile/update/$', update_profile, name='update_profile'),
 ]

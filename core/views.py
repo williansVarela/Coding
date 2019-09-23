@@ -3,11 +3,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView, RedirectView, TemplateView
 from django.contrib import messages
-from core.forms import LoginForm, UpdatePasswordForm
-from django.contrib.auth.forms import PasswordChangeForm
+from core.forms import LoginForm, UpdatePasswordForm, EditProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredMixin, TemplateView):
+    login_url = 'login/'
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
@@ -32,11 +34,11 @@ class LoginView(FormView):
 
     def form_valid(self, form):
         login(self.request, form.get_user())
-        messages.add_message(self.request, messages.SUCCESS, 'User authenticated successfully')
+        messages.add_message(self.request, messages.SUCCESS, 'Usuário autenticado com sucesso!')
         return super(LoginView, self).form_valid(form)
 
     def form_invalid(self, form):
-        messages.add_message(self.request, messages.ERROR, 'Failed to authenticate')
+        messages.add_message(self.request, messages.ERROR, 'Falha ao autenticar usuário.')
         return super(LoginView, self).form_invalid(form)
 
 
@@ -45,10 +47,11 @@ class LogoutView(RedirectView):
 
     def get(self, request, *args, **kwargs):
         logout(request)
-        messages.add_message(self.request, messages.SUCCESS, 'User successfully logged out')
+        messages.add_message(self.request, messages.SUCCESS, 'Usuário desconectado com sucesso!')
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
+@login_required
 def change_password(request):
     context = {'pagina': 'Perfil', 'page_title': 'Perfil | Alterar Senha'}
 
@@ -67,3 +70,24 @@ def change_password(request):
     context['form'] = form
 
     return render(request, 'change_password.html', context)
+
+
+@login_required
+def update_profile(request):
+    context = {'pagina': 'Perfil', 'page_title': 'Perfil | Editar Informações'}
+
+    if request.method == 'POST':
+        form = EditProfileForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Seus dados foram atualizado com sucesso!', extra_tags='alert alert-success')
+            return redirect('update_profile')
+        else:
+            messages.error(request, 'Por favor corrija o erro acima.', extra_tags='alert alert-danger')
+    else:
+        form = EditProfileForm(request.user)
+
+    context['form'] = form
+
+    return render(request, 'update_profile.html', context)

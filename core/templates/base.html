@@ -88,7 +88,9 @@
                         <p><strong>Data de Registro:</strong> {{ user.date_joined }}</p>
                     </div>
                     <div class="modal-footer">
+                        <a href="{% url 'update_profile' %}">
                         <button type="button" class="btn btn-info">Editar</button>
+                        </a>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
                     </div>
                 </div>
