@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django import forms
 from core.models import User
@@ -38,6 +39,8 @@ class UserCreateForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
+        if not email:
+            raise ValidationError("Esse campo é obrigatório")
         r = User.objects.filter(email=email)
         if r.count():
             raise ValidationError("Email já cadastrado")
@@ -49,6 +52,14 @@ class UserCreateForm(UserCreationForm):
 
         if password1 and password2 and password1 != password2:
             raise ValidationError("As senhas não correspondem")
+
+    def clean(self):
+        password1 = self.cleaned_data.get('password1')
+        if password1:
+            try:
+                validate_password(password1, self.instance)
+            except forms.ValidationError as error:
+                self.add_error('password1', error)
 
     def save(self, commit=True):
         user = User.objects.create_user(

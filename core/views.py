@@ -4,9 +4,12 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import FormView, RedirectView, TemplateView
+from django.views.generic import FormView, RedirectView, TemplateView, View
 from django.contrib import messages
 from core.forms import LoginForm, UpdatePasswordForm, EditProfileForm, UserCreateForm
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -71,8 +74,52 @@ def register_user(request):
         form = UserCreateForm()
 
     context = {'pagina': 'Admin', 'page_title': 'Admin | Registrar Usuário', 'admin_active': 'active', 'form': form}
-
     return render(request, 'create_user.html', context)
+
+
+class RegisterView(SuccessMessageMixin, TemplateView):
+    form_class = UserCreateForm
+    template_name = 'create_user.html'
+    success_message = "Usuário criado com sucesso!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pagina'] = 'teste'
+        context['page_title'] = 'teste'
+        context['form'] = self.form_class(request.POST)
+
+        return context
+
+        # Display blank form
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            user = form.save(commit=False)  # Do not save to table yet
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+
+            try:
+                validate_password(password, user)
+            except ValidationError as e:
+                form.add_error('password', e)  # to be displayed with the field's errors
+                return render(request, self.template_name, self.get_context_data())
+
+            user.set_password(password)
+            user.save()
+
+            # Let's try to login the user
+            user = authenticate(username=email, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('create_user')
+
+        return render(request, self.template_name, self.get_context_data())
 
 
 @login_required
