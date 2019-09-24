@@ -1,11 +1,12 @@
-from django.contrib.auth import login, logout, update_session_auth_hash
+from django.contrib.auth import login, logout, update_session_auth_hash, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import FormView, RedirectView, TemplateView
 from django.contrib import messages
-from core.forms import LoginForm, UpdatePasswordForm, EditProfileForm
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from core.forms import LoginForm, UpdatePasswordForm, EditProfileForm, UserCreateForm
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
@@ -49,6 +50,29 @@ class LogoutView(RedirectView):
         logout(request)
         messages.add_message(self.request, messages.SUCCESS, 'Usuário desconectado com sucesso!')
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+
+def admin_check(user):
+    return user.is_admin
+
+
+@login_required
+@user_passes_test(admin_check)
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuário criado com sucesso!', extra_tags='alert alert-success')
+            return redirect('create_user')
+        else:
+            messages.error(request, 'Por favor corrija o erro acima.', extra_tags='alert alert-danger')
+    else:
+        form = UserCreateForm()
+
+    context = {'pagina': 'Admin', 'page_title': 'Admin | Registrar Usuário', 'admin_active': 'active', 'form': form}
+
+    return render(request, 'create_user.html', context)
 
 
 @login_required

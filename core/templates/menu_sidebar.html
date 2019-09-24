@@ -79,5 +79,18 @@
                 <span class="toggle">Contatos</span>
             </a>
         </li>
+        {% if user.is_admin %}
+        <li class={{admin_active}}>
+            <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-users-cog"></i>
+                <span class="toggle">Admin</span>
+            </a>
+            <ul class="collapse list-unstyled" id="adminSubmenu">
+                <li>
+                    <a href="{% url 'create_user' %}">Criar Novo Usuário</a>
+                </li>
+            </ul>
+        </li>
+        {% endif %}
     </ul>
 </nav>

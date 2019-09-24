@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="col-md-6"> <!-- <div class="col-md-6 mx-auto"> -->
+    <h2>Criar Novo Usuário</h2>
+
+    <form method="post" role="form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        {% if messages %}
+            {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <button type="submit" id="btn-send" class="btn btn-primary">Criar</button>
+
+    </form>
+</div>
+
+{% endblock %}

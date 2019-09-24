@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 class UserManager(BaseUserManager):
     """Define a model manager for User model with no username field."""
 
-    def create_user(self, email, date_of_birth, password=None):
+    def create_user(self, name, email, date_of_birth, password=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -18,6 +18,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an email address')
 
         user = self.model(
+            name=name,
             email=self.normalize_email(email),
             date_of_birth=date_of_birth,
         )
