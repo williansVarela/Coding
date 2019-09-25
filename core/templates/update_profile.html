@@ -2,12 +2,13 @@
             
 {% block content %}
 
-    <h2>Alterar senha</h2>
+    <h2>Alterar Perfil</h2>
 
     <form method="post" role="form">
         {% csrf_token %}
-        {{ form }}
-
+        <div class="col-md-6">
+            {{ form.as_p }}
+        </div>
         {% if messages %}
             {% for message in messages %}
                 <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">

@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm, PasswordChangeForm, ReadOnlyPasswordHashField
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django import forms
@@ -17,13 +17,12 @@ class LoginForm(AuthenticationForm):
 
 
 class UserCreateForm(UserCreationForm):
-
     error_messages = {
         'password_mismatch': _("Os dois campos de senha não são iguais."),
     }
 
     name = forms.CharField(label='Nome Completo', min_length=4, max_length=150)
-    email = forms.EmailField(label='E-mail')
+    email = forms.EmailField(label='E-mail', required=True)
     date_of_birth = forms.DateField(label='Data de Nascimento')
     password1 = forms.CharField(label='Senha', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Confirme a senha', widget=forms.PasswordInput)
@@ -33,7 +32,8 @@ class UserCreateForm(UserCreationForm):
 
         self.fields['name'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite o nome'}
         self.fields['email'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a e-mail'}
-        self.fields['date_of_birth'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a data de nascimento'}
+        self.fields['date_of_birth'].widget.attrs = {'class': 'form-control',
+                                                     'placeholder': 'Digite a data de nascimento'}
         self.fields['password1'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a senha'}
         self.fields['password2'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a senha novamente'}
 
@@ -79,12 +79,31 @@ class UpdatePasswordForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
         super(UpdatePasswordForm, self).__init__(*args, **kwargs)
 
-        self.fields['old_password'].widget.attrs = {'id': 'id_old_password', 'class': 'form-control', 'placeholder': 'Digite a senha'}
-        self.fields['new_password1'].widget.attrs = {'id': 'id_new_password1', 'class': 'form-control', 'placeholder': 'Digite a nova senha'}
-        self.fields['new_password2'].widget.attrs = {'id': 'id_new_password2', 'class': 'form-control', 'placeholder': 'Confirme a nova senha'}
+        self.fields['old_password'].widget.attrs = {'id': 'id_old_password', 'class': 'form-control',
+                                                    'placeholder': 'Digite a senha'}
+        self.fields['new_password1'].widget.attrs = {'id': 'id_new_password1', 'class': 'form-control',
+                                                     'placeholder': 'Digite a nova senha'}
+        self.fields['new_password2'].widget.attrs = {'id': 'id_new_password2', 'class': 'form-control',
+                                                     'placeholder': 'Confirme a nova senha'}
 
 
 class EditProfileForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+
+        self.fields['email'].widget.attrs = {'class': 'form-control'}
+        self.fields['name'].widget.attrs = {'class': 'form-control'}
+        self.fields['date_of_birth'].widget.attrs = {'class': 'form-control'}
+
+    password = ReadOnlyPasswordHashField(
+        label=_("Password"),
+        help_text=_(
+            "Não é possível ver ou editar a senha deste usuário nesta página. "
+            "Para alterar a senha "
+            "<strong><a href=\"{}\">clique aqui</a></strong>."
+        ),
+    )
+
     class Meta:
         model = User
         fields = (
@@ -92,6 +111,5 @@ class EditProfileForm(UserChangeForm):
             'name',
             'date_of_birth',
         )
-
 
 

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include
-from core.views import LoginView, HomeView, register_user, change_password, update_profile, RegisterView
+from core.views import LoginView, HomeView, register_user, change_password, UpdateProfile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +26,5 @@ urlpatterns = [
     url('login/', LoginView.as_view(), name='login'),
     url(r'user/register/$', register_user, name='create_user'),
     url(r'user/password/$', change_password, name='change_password'),
-    url(r'user/update/$', update_profile, name='update_profile'),
+    url(r'user/update/$', UpdateProfile.as_view(), name='update_profile'),
 ]
