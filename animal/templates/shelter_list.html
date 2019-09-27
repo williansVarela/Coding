@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Acolhimentos</h2>
+    <a href="{% url 'new_shelter' %}">Novo Acolhimento</a>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Pessoa</th>
+            <th scope="col">Animal</th>
+            <th scope="col">Situação</th>
+            <th scope="col">Entrada</th>
+            <th scope="col">Saída</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </thead>
+        <tbody>
+
+            {% for shelter in shelter %}
+
+                <tr>
+                    <th scope = "row">{{ shelter.id }}</th>
+                    <td>{{ shelter.person }}</td>
+                    <td>{{ shelter.animal }}</td>
+                    <td>{{ shelter.category }}</td>
+                    <td>{{ shelter.entry_date }}</td>
+                    <td>{{ shelter.exit_date }}</td>
+                    <td><a href="{% url 'update_shelter' pk=shelter.id %}">EDIT</a></td>
+                    <td><a href="{% url 'del_shelter' pk=shelter.id %}">DELETE</a></td>
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

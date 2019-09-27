@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Animais</h2>
+    <a href="{% url 'new_animal' %}">Novo Animal</a>
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Espécie</th>
+            <th scope="col">Raça</th>
+            <th scope="col">Acolhimento</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </thead>
+        <tbody>
+
+            {% for animal in animals %}
+
+                <tr>
+                    <th scope = "row">{{ animal.id }}</th>
+                    <td>{{ animal.name }}</td>
+                    <td>{{ animal.species }}</td>
+                    <td>{{ animal.breed }}</td>
+                    {% if animal.category == None %}
+                        <td><a = href="{% url 'new_shelter' %}">Adicionar</td>a></td>
+                    {% else %}
+                        <td>{{ animal.category }}</td>
+                    {% endif %}
+                    <td>INFO</td>
+                    <td><a href="{% url 'update_animal' pk=animal.id %}">EDIT</a></td>
+                    <td><a href="{% url 'del_animal' pk=animal.id %}">DELETE</a></td>
+
+                </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

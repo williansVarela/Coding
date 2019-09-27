@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <h3>Novo Animal</h3>
+        <form method="POST" action="" enctype="multipart/form-data" novalidate id="animal-form">
+
+            {% csrf_token %}
+            <label for="animal-name" class="control_label">Nome</label>
+                {{ animal_form.name }}
+            <label for="animal-sex" class="control_label">Sexo</label>
+                {{ animal_form.sex }}
+            <br><br>
+            <label for="animal-birthday" class="control_label">Data de Nascimento</label>
+                {{ animal_form.birthday }}
+            <br><br>
+            <label for="animal-species" class="control_label">Espécie</label>
+                {{ animal_form.species }}
+            <a href="{% url 'new_species_popup' %}" id="add-species" onclick="return showAddPopup(this);">Adicionar</a>
+            <br><br>
+            <label for="animal-breed" class="control_label">Raça</label>
+                {{ animal_form.breed }}
+            <a href="{% url 'new_breed_popup' %}" id="add-breed" onclick="return showAddPopup(this);">Adicionar</a>
+            <br><br>
+            <label for="animal-observation" class="control_label">Observação</label>
+                {{ animal_form.observation }}
+
+            {% if action == 'create' %}
+
+                <br><br>
+                <h4>Histórico Clínico</h4>
+                <label for="healthlog-health" class="control_label">Evento Clínico</label>
+                    {{ healthlog_form.health }}
+                <a href="{% url 'new_health_popup' %}" id="add-health" onclick="return showAddPopup(this);">Adicionar</a>
+                <br><br>
+                <label for="healthlog-date" class="control_label">Data</label>
+                    {{ healthlog_form.date }}
+                <br><br>
+                <label for="healthlog-observation" class="control_label">Observação</label>
+                    {{ healthlog_form.observation }}
+
+            {% endif %}
+
+            <br><br>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        function showAddPopup(triggeringLink) {
+            var name = triggeringLink.id.replace(/^add_/, '');
+            href = triggeringLink.href;
+            var win = window.open(href, name, 'height=500, width=800, resizable=yes, scrollbars=yes');
+            win.focus();
+            return false;
+        }
+        function closePopup(win, newID, newRepr, id) {
+            $(id).append('<option value=' + newID + ' selected >' + newRepr + '</option>');
+            win.close();
+        }
+
+    </script>
+
+{% endblock %}

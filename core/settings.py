@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # New Apps
-    'core'
+    'core',
+    'animal',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,8 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),
+                 os.path.join(os.path.abspath(os.path.join(BASE_DIR, os.pardir)), 'animal/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
