@@ -16,16 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include
-from core.views import LoginView, HomeView, register_user, change_password, UpdateProfile, list_users
+from core.views import LoginView, HomeView, register_user, change_password, UpdateProfile, list_users, desable_user, active_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('django.contrib.auth.urls')),
+    path('user/desable/<int:pk>', desable_user, name='desable_user'),
+    path('user/active/<int:pk>', active_user, name='active_user'),
 
     url(r'^$', HomeView.as_view(), name='home'),
     url('login/', LoginView.as_view(), name='login'),
     url(r'user/register/$', register_user, name='create_user'),
     url(r'user/all/$', list_users, name='list_users'),
     url(r'user/password/$', change_password, name='change_password'),
-    url(r'user/update/$', UpdateProfile.as_view(), name='update_profile'),
+    url(r'profile/update/$', UpdateProfile.as_view(), name='update_profile'),
 ]

@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib.auth import login, logout, update_session_auth_hash, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -12,6 +12,7 @@ from core.forms import LoginForm, UpdatePasswordForm, EditProfileForm, UserCreat
 from django.views.generic import UpdateView
 from core.models import User
 from django.contrib.auth import get_user_model
+from django.utils.decorators import method_decorator
 
 
 def admin_check(user):
@@ -87,6 +88,26 @@ def list_users(request):
 
     return render(request, 'user_list.html', context)
 
+
+@login_required
+@user_passes_test(admin_check)
+def desable_user(request, pk):
+    user = User.objects.get(id=pk)
+    if user.is_active:
+        user.is_active = False
+        user.save()
+
+    return redirect('list_users')
+
+
+@login_required
+@user_passes_test(admin_check)
+def active_user(request, pk):
+    user = User.objects.get(id=pk)
+    user.is_active = True
+    user.save()
+
+    return redirect('list_users')
 
 @login_required
 def change_password(request):

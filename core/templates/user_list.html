@@ -21,16 +21,19 @@
                 <td class="text-center">{{user.date_joined|date:'d/m/Y'}}</td>
 
                 <td class="text-center">{% if user.is_active %}
-                        <span style="font-size: 2em; color: green;">
-                            <i class="fas fa-toggle-on"></i>
-                        </span>
+                        <a href="{% url "desable_user" user.id %}">
+                            <span style="font-size: 2em; color: green;">
+                                <i class="fas fa-toggle-on"></i>
+                            </span>
+                        </a>
                     {% else %}
-                        <span style="font-size: 2em; color: #E80D0C; transform: rotate(180deg);">
-                            <i class="fas fa-toggle-on"></i>
-                        </span>
+                        <a href="{% url "active_user" user.id %}">
+                            <span style="font-size: 2em; color: grey; transform: rotate(180deg);">
+                                <i class="fas fa-toggle-on"></i>
+                            </span>
+                        </a>
                     {% endif %}
                 </td>
-                    
             </tr>
         {% endfor %}
     </tbody>

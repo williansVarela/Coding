@@ -93,3 +93,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = 'Usuário'
         verbose_name_plural = 'Usuários'
+        app_label = 'core'
+        permissions = (("access_system", "Acessar Sistema"),
+                        ("admin_user", "Administrar Usuários"),
+                        ("desable_user", "Desabilitar Usuário"),)
