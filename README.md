@@ -73,7 +73,7 @@ nível2: `templates/<nome_do_app>/<nome_do_subapp>`
 
 As bibliotecas e definições de javascript e css que são de utilidade geral estão na pasta static raiz.
 
-Para utilização de featutes específicas, deve-se implementar no nível da folha os blocos `{% block css %}` e `{% block js %}`. 
+Para utilização de featutes específicas, deve-se implementar no nível da folha os blocos `{% block extra_css %}` e `{% block js %}`. 
 
 ### 8. Tutorial de Criação de Novo App
 
