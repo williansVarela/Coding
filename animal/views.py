@@ -5,12 +5,9 @@ from .models import Animal, Shelter
 
 
 def animal(request):
-    data = {}
-    animal_objs = Animal.objects.all()
-
     animals = []
 
-    for animal_obj in animal_objs:
+    for animal_obj in Animal.objects.all():
         shelter_objs = Shelter.objects.filter(animal = animal_obj.id)
         if len(shelter_objs) > 0:
             category = shelter_objs.order_by('-entry_date')[0].category
@@ -19,8 +16,9 @@ def animal(request):
             animal_obj.category = None
         animals.append(animal_obj)
 
-    data['animals'] = animals
-    return render(request, 'animal_list.html', data)
+    context = {'pagina': 'Lista de Animais', 'page_title': 'Animais'}
+    context['animals'] = animals
+    return render(request, 'animal_list.html', context)
 
 
 def new_animal(request):

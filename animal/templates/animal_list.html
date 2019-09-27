@@ -1,42 +1,31 @@
-{% extends 'base.html' %}
+{% extends 'base_list.html' %}
 
-{% block content %}
-
-    <h2>Animais</h2>
+{% block table_content %}
     <a href="{% url 'new_animal' %}">Novo Animal</a>
-    <table class="table">
-        <thead class="thead-dark">
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Espécie</th>
-            <th scope="col">Raça</th>
-            <th scope="col">Acolhimento</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-        </thead>
-        <tbody>
+    <thead>
+        <th>Nome</th>
+        <th>Espécie</th>
+        <th>Raça</th>
+        <th>Acolhimento</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </thead>
+    <tbody>
 
-            {% for animal in animals %}
+        {% for animal in animals %}
 
-                <tr>
-                    <th scope = "row">{{ animal.id }}</th>
-                    <td>{{ animal.name }}</td>
-                    <td>{{ animal.species }}</td>
-                    <td>{{ animal.breed }}</td>
-                    {% if animal.category == None %}
-                        <td><a = href="{% url 'new_shelter' %}">Adicionar</td>a></td>
-                    {% else %}
-                        <td>{{ animal.category }}</td>
-                    {% endif %}
-                    <td>INFO</td>
-                    <td><a href="{% url 'update_animal' pk=animal.id %}">EDIT</a></td>
-                    <td><a href="{% url 'del_animal' pk=animal.id %}">DELETE</a></td>
+            <tr>
+                <td>{{ animal.name }}</td>
+                <td>{{ animal.species }}</td>
+                <td>{{ animal.breed }}</td>
+                <td>{% if animal.category == None %}<a href="{% url 'new_shelter' %}">Adicionar</a>{% else %}{{ animal.category }}{% endif %}</td>
+                <td>INFO</td>
+                <td><a href="{% url 'update_animal' pk=animal.id %}">EDIT</a></td>
+                <td><a href="{% url 'del_animal' pk=animal.id %}">DELETE</a></td>
+            </tr>
 
-                </tr>
+        {% endfor %}
 
-            {% endfor %}
-
-        </tbody>
-    </table>
+    </tbody>
 {% endblock %}
