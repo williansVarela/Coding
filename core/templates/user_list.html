@@ -1,0 +1,38 @@
+{% extends 'base_list.html' %}
+
+{% block table_content %}
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th class="text-center">Último login</th>
+            <th class="text-center">Perfil</th>
+            <th class="text-center">Data de registro</th>
+            <th class="text-center">Ativo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td class="text-center">{% if user.last_login %}{{user.last_login|date:'d/m/Y H:i'}}{% else %}Nunca logou{% endif %}</td>
+                <td class="text-center">{% if user.is_admin %}Admin.{% else %}Voluntário{% endif %}</td>
+                <td class="text-center">{{user.date_joined|date:'d/m/Y'}}</td>
+
+                <td class="text-center">{% if user.is_active %}
+                        <span style="font-size: 2em; color: green;">
+                            <i class="fas fa-toggle-on"></i>
+                        </span>
+                    {% else %}
+                        <span style="font-size: 2em; color: #E80D0C; transform: rotate(180deg);">
+                            <i class="fas fa-toggle-on"></i>
+                        </span>
+                    {% endif %}
+                </td>
+                    
+            </tr>
+        {% endfor %}
+    </tbody>
+
+{% endblock %}

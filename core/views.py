@@ -1,4 +1,5 @@
-import ipdb as ipdb
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from django.contrib.auth import login, logout, update_session_auth_hash, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -10,20 +11,11 @@ from django.contrib import messages
 from core.forms import LoginForm, UpdatePasswordForm, EditProfileForm, UserCreateForm
 from django.views.generic import UpdateView
 from core.models import User
+from django.contrib.auth import get_user_model
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
-    login_url = 'login/'
-    template_name = 'index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        context['pagina'] = 'Início'
-        context['page_title'] = 'Home | Sistema de Gestão'
-        context['home_active'] = 'active'
-
-        return context
-
+def admin_check(user):
+    return user.is_admin
 
 class LoginView(FormView):
     template_name = 'login.html'
@@ -55,8 +47,17 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-def admin_check(user):
-    return user.is_admin
+class HomeView(LoginRequiredMixin, TemplateView):
+    login_url = 'login/'
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['pagina'] = 'Início'
+        context['page_title'] = 'Home | Sistema de Gestão'
+        context['home_active'] = 'active'
+
+        return context
 
 
 @login_required
@@ -75,6 +76,16 @@ def register_user(request):
 
     context = {'pagina': 'Admin', 'page_title': 'Admin | Registrar Usuário', 'admin_active': 'active', 'form': form}
     return render(request, 'create_user.html', context)
+
+
+@login_required
+@user_passes_test(admin_check)
+def list_users(request):
+    users = get_user_model()
+    context = {'pagina': 'Lista de Usuários', 'page_title': 'Admin | Usuários', 'admin_active': 'active'}
+    context['users'] = users.objects.all()
+
+    return render(request, 'user_list.html', context)
 
 
 @login_required
