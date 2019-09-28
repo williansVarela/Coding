@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='user',
-            options={'permissions': (('access_system', 'Acessar Sistema'), ('admin_user', 'Administrar Usuários'), ('desable_user', 'Desabilitar Usuário')), 'verbose_name': 'Usuário', 'verbose_name_plural': 'Usuários'},
+            options={'permissions': (('access_system', 'Acessar Sistema'), ('admin_user', 'Administrar Usuários'), ('disable_user', 'Desabilitar Usuário')), 'verbose_name': 'Usuário', 'verbose_name_plural': 'Usuários'},
         ),
         migrations.AlterField(
             model_name='user',

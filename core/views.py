@@ -18,6 +18,7 @@ from django.utils.decorators import method_decorator
 def admin_check(user):
     return user.is_admin
 
+
 class LoginView(FormView):
     template_name = 'login.html'
     form_class = LoginForm
@@ -85,17 +86,25 @@ def list_users(request):
     users = get_user_model()
     context = {'pagina': 'Lista de Usuários', 'page_title': 'Admin | Usuários', 'admin_active': 'active'}
     context['users'] = users.objects.all()
+    context['template_modal'] = 'confirm_modal.html'
+
+
 
     return render(request, 'user_list.html', context)
 
 
 @login_required
 @user_passes_test(admin_check)
-def desable_user(request, pk):
+def disable_user(request, pk):
     user = User.objects.get(id=pk)
     if user.is_active:
         user.is_active = False
         user.save()
+        messages.success(request, 'Usuário {} desativado com sucesso!'.format(user.email),
+                         extra_tags='alert alert-success alert-dismissible fade show')
+    else:
+        messages.error(request, 'Conta de usuário já está ativa!',
+                       extra_tags='alert alert-danger alert-dismissible fade show')
 
     return redirect('list_users')
 
@@ -104,10 +113,30 @@ def desable_user(request, pk):
 @user_passes_test(admin_check)
 def active_user(request, pk):
     user = User.objects.get(id=pk)
-    user.is_active = True
-    user.save()
+    if not user.is_active:
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Usuário {} ativado com sucesso!'.format(user.email),
+                         extra_tags='alert alert-success alert-dismissible fade show')
+    else:
+        messages.error(request, 'Conta de usuário já está desativada!',
+                       extra_tags='alert alert-danger alert-dismissible fade show')
 
     return redirect('list_users')
+
+
+@login_required
+@user_passes_test(admin_check)
+def delete_user(request, pk):
+    user = User.objects.get(id=pk)
+    try:
+        user.delete()
+        messages.success(request, 'Usuário {} removido com sucesso!'.format(user.email), extra_tags='alert alert-success alert-dismissible fade show')
+    except:
+        messages.error(request, 'Falha na execução. Tente novamente.', extra_tags='alert alert-danger alert-dismissible fade show')
+
+    return redirect('list_users')
+
 
 @login_required
 def change_password(request):
@@ -161,7 +190,3 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
             messages.error(self.request, 'Por favor corrija o erro acima.', extra_tags='alert alert-danger')
 
         return super(UpdateProfile, self).form_valid(form)
-
-
-
-

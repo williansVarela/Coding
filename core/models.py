@@ -96,4 +96,4 @@ class User(AbstractBaseUser, PermissionsMixin):
         app_label = 'core'
         permissions = (("access_system", "Acessar Sistema"),
                         ("admin_user", "Administrar Usuários"),
-                        ("desable_user", "Desabilitar Usuário"),)
+                        ("disable_user", "Desabilitar Usuário"),)

@@ -1,6 +1,17 @@
 {% extends 'base_list.html' %}
 
 {% block table_content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <thead>
         <tr>
             <th>Nome</th>
@@ -9,6 +20,7 @@
             <th class="text-center">Perfil</th>
             <th class="text-center">Data de registro</th>
             <th class="text-center">Ativo</th>
+            <th class="text-center">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -20,8 +32,8 @@
                 <td class="text-center">{% if user.is_admin %}Admin.{% else %}Voluntário{% endif %}</td>
                 <td class="text-center">{{user.date_joined|date:'d/m/Y'}}</td>
 
-                <td class="text-center">{% if user.is_active %}
-                        <a href="{% url "desable_user" user.id %}">
+                <td class="text-center align-middle">{% if user.is_active %}
+                        <a href="{% url "disable_user" user.id %}">
                             <span style="font-size: 2em; color: green;">
                                 <i class="fas fa-toggle-on"></i>
                             </span>
@@ -34,7 +46,37 @@
                         </a>
                     {% endif %}
                 </td>
+                <td class="text-center align-middle">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#user_{{user.id}}_modal" role="button" title="Remover">
+                        <span style="font-size: 1.5em; color: #F20505">
+                            <i class="fas fa-trash-alt"></i></em>
+                        </span>
+                    </button>
+                </td>
             </tr>
+
+            <!-- Confirm Delete User Modal -->
+            <div class="modal fade" id="user_{{user.id}}_modal" role="dialog">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Remover Usuário - ID {{ user.id }}</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja remover o usuário <strong>{{ user.name }}</strong>?</p>
+                        <p>Esta operação não poderá ser desfeita no futuro.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'delete_user' user.id %}">
+                        <button type="button" class="btn btn-danger">Remover</button>
+                        </a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
         {% endfor %}
     </tbody>
 

@@ -16,7 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path, include
-from core.views import LoginView, HomeView, register_user, change_password, UpdateProfile, list_users, desable_user, active_user
+from core.views import (LoginView, HomeView, register_user, change_password, UpdateProfile, list_users, disable_user,
+                        active_user, delete_user)
+
 from animal.views import (animal,
                           new_animal,
                           update_animal,
@@ -32,8 +34,10 @@ from animal.views import (animal,
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('django.contrib.auth.urls')),
-    path('user/desable/<int:pk>', desable_user, name='desable_user'),
+    path('user/disable/<int:pk>', disable_user, name='disable_user'),
     path('user/active/<int:pk>', active_user, name='active_user'),
+    path('user/delete/<int:pk>', delete_user, name='delete_user'),
+    #path(r'animals/', include('animal.urls'), name='animals'),
 
     url(r'^$', HomeView.as_view(), name='home'),
     url('login/', LoginView.as_view(), name='login'),
