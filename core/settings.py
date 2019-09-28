@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',
     'animal',
     'contacts',
+    'contacts.contacts_register',
 ]
 
 MIDDLEWARE = [
