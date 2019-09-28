@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import AnimalForm, SpeciesForm, BreedForm, HealthLog, HealthLogForm, HealthForm, ShelterForm
+from .forms import AnimalForm, SpeciesForm, BreedForm, ShelterForm
 from .models import Animal, Shelter
 
 
@@ -17,8 +17,8 @@ def animal(request):
 
         animal_obj.shelters = shelter_objs
 
-        healthlog_objs = HealthLog.objects.filter(animal=animal_obj.id).order_by('-date')
-        animal_obj.healthlogs = healthlog_objs
+        # healthlog_objs = HealthLog.objects.filter(animal=animal_obj.id).order_by('-date')
+        # animal_obj.healthlogs = healthlog_objs
         animals.append(animal_obj)
 
     context = {'pagina': 'Lista de Animais', 'page_title': 'Animais'}
@@ -90,30 +90,18 @@ def new_breed_popup(request):
     return render(request, "breed_form.html", context)
 
 
-def new_health_popup(request):
-    data = {}
-    form = HealthForm(request.POST or None)
-
-    if form.is_valid():
-        instance = form.save()
-        return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_health");</script>' % (instance.pk, instance))
-
-    data['form'] = form
-    return render(request, "health_form.html", data)
-
-
-def new_healthlog_popup(request, pk):
-    healthlog_form = HealthLogForm(request.POST or None)
-
-    if healthlog_form.is_valid():
-        healthlog_obj = healthlog_form.save(False)
-        healthlog_obj.animal = Animal.objects.get(pk=pk)
-        healthlog_obj.save()
-        return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_healthlog");</script>' % (healthlog_obj.pk, healthlog_obj))
-
-    context = {'pagina': 'Nova Informação Clínica', 'page_title': 'Nova Informação Clínica'}
-    context['form'] = healthlog_form
-    return render(request, "healthlog_form.html", context)
+# def new_healthlog_popup(request, pk):
+#     healthlog_form = HealthLogForm(request.POST or None)
+#
+#     if healthlog_form.is_valid():
+#         healthlog_obj = healthlog_form.save(False)
+#         healthlog_obj.animal = Animal.objects.get(pk=pk)
+#         healthlog_obj.save()
+#         return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_healthlog");</script>' % (healthlog_obj.pk, healthlog_obj))
+#
+#     context = {'pagina': 'Nova Informação Clínica', 'page_title': 'Nova Informação Clínica'}
+#     context['form'] = healthlog_form
+#     return render(request, "healthlog_form.html", context)
 
 
 def shelter(request):

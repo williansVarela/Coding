@@ -44,21 +44,10 @@ class Animal(models.Model):
         super(Animal, self).save(force_insert, force_update)
 
 
-class Health(models.Model):
-    name = models.CharField(max_length=30, verbose_name="Estado Clínico")
-
-    def __str__(self):
-        return self.name
-
-
-class HealthLog(models.Model):
+class ClinicalLog(models.Model):
+    clinical_condition = models.CharField(max_length=55, verbose_name="Estado Clínico")
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name="Animal")
-    health = models.ForeignKey(Health, on_delete=models.CASCADE, verbose_name="Estado Clínico")
-    date = models.DateField(default='AAAA-MM-DD', verbose_name="Data")
-    observation = models.CharField(max_length=140, null=True, blank=True, verbose_name="Observação")
-
-    def __str__(self):
-        return self.animal.name + " - " + self.health.name
+    date = models.DateField(verbose_name="Data")
 
 
 class Shelter(models.Model):
