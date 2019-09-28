@@ -1,8 +1,16 @@
-<div class="container">
-    <h1>Nova Raça</h1>
-    <form method="POST" action="" enctype="multipart/form-data" novalidate id="breed-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit"/>
-    </form>
-</div>
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% block right_panel %}{% endblock %}
+
+    <div class="container">
+        <h1>Nova Raça</h1>
+        <form method="POST" action="" enctype="multipart/form-data" novalidate id="breed-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit"/>
+        </form>
+    </div>
+
+{% endblock %}

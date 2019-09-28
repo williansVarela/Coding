@@ -1,0 +1,44 @@
+{#<div class="container">#}
+{##}
+{#    <form method="POST" action="" enctype="multipart/form-data" novalidate id="healthlog-form">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }} <a href="{% url 'new_health_popup' %}" id="add-health" onclick="return showAddPopup(this);">Adicionar</a>#}
+{#        <input type="submit" value="Submit"/>#}
+{#    </form>#}
+{#</div>#}
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="col-md-6">
+        <form method="POST" role="form">
+
+            {% csrf_token %}
+
+            <p><label for="healthlog-health">Informação Clínica</label>
+                {{ form.health }}
+                <a href="{% url 'new_health_popup' %}" id="add-health" onclick="return showAddPopup(this);">
+                    <button type="button" class="btn btn-default" role="button" title="Nova Informação Clínica">
+                        <span style="font-size: 1.5em; color: #31af91">
+                            <i class="fas fa-plus"></i>
+                        </span>
+                    </button>
+                </a>
+            </p>
+
+            <p><label for="healthlog-date">Data</label>
+                {{ form.date }}
+            </p>
+
+            <p><label for="healthlog-observation">Observação</label>
+                {{ form.observation }}
+            </p>
+
+            <button type="submit" id="btn-send" class="btn btn-primary">Criar</button>
+        </form>
+    </div>
+
+{% include 'popup_form.html' %}
+
+{% endblock %}

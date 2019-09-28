@@ -2,16 +2,13 @@
 
 {% block content %}
 
-    <div class="container">
-        <h3>Novo Abrigo</h3>
-        <form method="POST" action="" enctype="multipart/form-data" novalidate id="shelter-form">
+    <div class="col-md-6">
+        <form method="POST" role="form">
 
             {% csrf_token %}
             {{ form.as_p }}
 
-
-            <br><br>
-            <button type="submit">Save</button>
+            <button type="submit" id="btn-send" class="btn btn-primary">Criar</button>
         </form>
     </div>
 

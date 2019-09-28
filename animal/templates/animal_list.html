@@ -1,15 +1,15 @@
 {% extends 'base_list.html' %}
 
 {% block table_content %}
-    <a href="{% url 'new_animal' %}">Novo Animal</a>
+    <a href="{% url 'new_animal' %}">
+        <button type="button" class="btn btn-info">Novo Animal</button>
+    </a>
     <thead>
         <th>Nome</th>
-        <th>Espécie</th>
-        <th>Raça</th>
-        <th>Acolhimento</th>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th class="text-center">Espécie</th>
+        <th class="text-center">Raça</th>
+        <th class="text-center">Acolhimento</th>
+        <th class="text-center">Ações</th>
     </thead>
     <tbody>
 
@@ -17,15 +17,117 @@
 
             <tr>
                 <td>{{ animal.name }}</td>
-                <td>{{ animal.species }}</td>
-                <td>{{ animal.breed }}</td>
-                <td>{% if animal.category == None %}<a href="{% url 'new_shelter' %}">Adicionar</a>{% else %}{{ animal.category }}{% endif %}</td>
-                <td>INFO</td>
-                <td><a href="{% url 'update_animal' pk=animal.id %}">EDIT</a></td>
-                <td><a href="{% url 'del_animal' pk=animal.id %}">DELETE</a></td>
+                <td class="text-center">{{ animal.species }}</td>
+                <td class="text-center">{{ animal.breed }}</td>
+                <td class="text-center">
+                    {% if animal.shelter_category == None %}
+                        <a href="{% url 'new_shelter' %}">
+                            <button type="button" class="btn btn-default" role="button" title="Novo Abrigo">
+                                <span style="font-size: 1.5em; color: #31af91">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </button>
+                        </a>
+                    {% else %}
+                        {{ animal.shelter_category }}
+                    {% endif %}
+                </td>
+
+                <td class="text-center">
+                    <a href="#">
+                        <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#animal-{{ animal.id }}-infomodal" role="button" title="Informações">
+                            <span style="font-size: 1.5em; color: #2b8a9a">
+                                <i class="fas fa-info"></i>
+                            </span>
+                        </button>
+                    </a>
+                    <a href="{% url 'update_animal' pk=animal.id %}" role="button" title="Editar">
+                        <button type="button" class="btn btn-default">
+                            <span style="font-size: 1.5em; color: #f8b242">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                        </button>
+                    </a>
+
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#animal-{{animal.id}}-delmodal" role="button" title="Remover">
+                        <span style="font-size: 1.5em; color: #dc3545">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </button>
+
+                </td>
             </tr>
+
+
+            <!-- Animal Info Modal -->
+            <div class="modal fade" id="animal-{{ animal.id }}-infomodal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h3 class="modal-title">Informações d{% if animal.sex == "F" %}a{% else %}o{% endif %} {{ animal.name }}</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <h5 style="padding-bottom:0.1em;">Informações Gerais</h5>
+                            <p><strong>Nome:</strong> {{ animal.name }}<strong style="padding-left:5em;">Sexo:</strong>  {{ animal.sex }}</p>
+                            <p><strong>Acolhimento:</strong> {{ animal.shelter_category }}</p>
+                            <p><strong>Data de Nascimento:</strong> {{ animal.birthday|date:'d/m/Y' }}</p>
+                            <p><strong>Raça:</strong> {{ animal.breed }} ({{ animal.species }})</p>
+                            <p><strong>Observações:</strong> {{ animal.observation }}</p>
+                            <h5 style="padding-bottom:0.1em;">Histórico Clínico
+                                <a href="{% url 'new_healthlog_popup' animal.id %}" id="add-healthlog" onclick="return showAddPopup(this);">
+                                    <button type="button" class="btn btn-default" role="button" title="Nova Informação Clínica">
+                                        <span style="font-size: 1.5em; color: #31af91">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </button>
+                                </a>
+                            </h5>
+                            <ul>
+                                {% for healthlog in animal.healthlogs %}
+                                    <li style="font-size:15px; margin-bottom:10px;">{{ healthlog.date|date:'d/m/Y' }} - {{ healthlog.health }}{% if healthlog.observation != '' %} - {{ healthlog.observation }}{% endif %} </li>
+                                {% endfor %}
+                            </ul>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{% url 'update_profile' %}">
+                            <button type="button" class="btn btn-info">Editar</button>
+                            </a>
+                            <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animal Delete Modal -->
+            <div class="modal fade" id="animal-{{animal.id}}-delmodal" role="dialog">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Animal - ID {{ animal.id }}</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja remover o animal <strong>{{ animal.name }}</strong>?</p>
+                        <p>Esta operação não poderá ser desfeita no futuro.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'del_animal' pk=animal.id %}">
+                        <button type="button" class="btn btn-danger">Remover</button>
+                        </a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
 
         {% endfor %}
 
     </tbody>
+
+{% include 'popup_form.html' %}
+
 {% endblock %}
