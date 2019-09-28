@@ -98,9 +98,9 @@ def new_health_popup(request):
 
 
 def shelter(request):
-    data = {}
-    data['shelter'] = Shelter.objects.all()
-    return render(request, 'shelter_list.html', data)
+    context = {'pagina': 'Lista de Acolhimentos', 'page_title': 'Acolhimentos'}
+    context['shelter'] = Shelter.objects.all()
+    return render(request, 'shelter_list.html', context)
 
 
 def new_shelter(request):
