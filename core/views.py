@@ -86,7 +86,10 @@ def list_users(request):
     users = get_user_model()
     context = {'pagina': 'Lista de Usuários', 'page_title': 'Admin | Usuários', 'admin_active': 'active'}
     context['users'] = users.objects.all()
-    context['template_modal'] = 'confirm_modal.html'
+    context['template_modal'] = 'modal_confirm.html'
+    context['object_model'] = 'usuário'
+    context['title_model'] = 'Remover Usuário'
+    context['url_modal'] = 'delete_user'
 
 
 

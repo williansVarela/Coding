@@ -24,22 +24,22 @@
         </tr>
     </thead>
     <tbody>
-        {% for user in users %}
+        {% for object in users %}
             <tr>
-                <td>{{user.name}}</td>
-                <td>{{user.email}}</td>
-                <td class="text-center">{% if user.last_login %}{{user.last_login|date:'d/m/Y H:i'}}{% else %}Nunca logou{% endif %}</td>
-                <td class="text-center">{% if user.is_admin %}Admin.{% else %}Voluntário{% endif %}</td>
-                <td class="text-center">{{user.date_joined|date:'d/m/Y'}}</td>
+                <td>{{object.name}}</td>
+                <td>{{object.email}}</td>
+                <td class="text-center">{% if object.last_login %}{{object.last_login|date:'d/m/Y H:i'}}{% else %}Nunca logou{% endif %}</td>
+                <td class="text-center">{% if object.is_admin %}Admin.{% else %}Voluntário{% endif %}</td>
+                <td class="text-center">{{object.date_joined|date:'d/m/Y'}}</td>
 
-                <td class="text-center align-middle">{% if user.is_active %}
-                        <a href="{% url "disable_user" user.id %}">
+                <td class="text-center align-middle">{% if object.is_active %}
+                        <a href="{% url "disable_user" object.id %}">
                             <span style="font-size: 2em; color: green;">
                                 <i class="fas fa-toggle-on"></i>
                             </span>
                         </a>
                     {% else %}
-                        <a href="{% url "active_user" user.id %}">
+                        <a href="{% url "active_user" object.id %}">
                             <span style="font-size: 2em; color: grey; transform: rotate(180deg);">
                                 <i class="fas fa-toggle-on"></i>
                             </span>
@@ -47,7 +47,7 @@
                     {% endif %}
                 </td>
                 <td class="text-center align-middle">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#user_{{user.id}}_modal" role="button" title="Remover">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
                         <span style="font-size: 1.5em; color: #F20505">
                             <i class="fas fa-trash-alt"></i></em>
                         </span>
@@ -55,27 +55,7 @@
                 </td>
             </tr>
 
-            <!-- Confirm Delete User Modal -->
-            <div class="modal fade" id="user_{{user.id}}_modal" role="dialog">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">Remover Usuário - ID {{ user.id }}</h3>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Tem certeza que deseja remover o usuário <strong>{{ user.name }}</strong>?</p>
-                        <p>Esta operação não poderá ser desfeita no futuro.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="{% url 'delete_user' user.id %}">
-                        <button type="button" class="btn btn-danger">Remover</button>
-                        </a>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-                    </div>
-                </div>
-                </div>
-            </div>
+            {% include template_modal %}
 
         {% endfor %}
     </tbody>
