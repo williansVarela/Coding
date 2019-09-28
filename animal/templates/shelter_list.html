@@ -20,8 +20,8 @@
                 <td>{{ shelter.person }}</td>
                 <td>{{ shelter.animal }}</td>
                 <td class="text-center">{{ shelter.category }}</td>
-                <td class="text-center">{{ shelter.entry_date|date:'d/m/Y' }}</td>
-                <td class="text-center">{{ shelter.exit_date|date:'d/m/Y' }}</td>
+                <td class="text-center">{{ shelter.date_entry|date:'d/m/Y' }}</td>
+                <td class="text-center">{{ shelter.date_exit|date:'d/m/Y' }}</td>
                 <td>
                     <a href="{% url 'update_shelter' pk=shelter.id %}">
                         <button type="button" class="btn btn-default">

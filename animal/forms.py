@@ -5,7 +5,7 @@ from .models import Animal, Species, Breed, Shelter
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['name', 'sex', 'birthday', 'species', 'breed', 'observation']
+        fields = ['name', 'sex', 'day_of_birth', 'species', 'breed', 'observation']
 
 
 class SpeciesForm(forms.ModelForm):
@@ -23,4 +23,4 @@ class BreedForm(forms.ModelForm):
 class ShelterForm(forms.ModelForm):
     class Meta:
         model = Shelter
-        fields = ['animal', 'category', 'entry_date', 'exit_date']
+        fields = ['animal', 'category', 'date_entry', 'date_exit']

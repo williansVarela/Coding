@@ -31,7 +31,7 @@ class Animal(models.Model):
     ]
     name = models.CharField(max_length=30, verbose_name="Nome")
     sex = models.CharField(max_length=1, choices=SEX_CHOICES, default="F", verbose_name="Sexo")
-    birthday = models.DateField(default='AAAA-MM-DD', verbose_name="Data de Nascimento")
+    day_of_birth = models.DateField(verbose_name="Data Nascimento")
     species = models.ForeignKey(Species, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Espécie")
     breed = models.ForeignKey(Breed, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Raça")
     observation = models.CharField(max_length=140, null=True, blank=True, verbose_name="Observação")
@@ -58,8 +58,8 @@ class Shelter(models.Model):
     person = None
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name="Animal")
     category = models.CharField(max_length=10, choices=SHELTER_CHOICES, verbose_name="Categoria")
-    entry_date = models.DateField(default='AAAA-MM-DD', verbose_name="Data de Entrada")
-    exit_date = models.DateField(default='AAAA-MM-DD', null=True, blank=True, verbose_name="Data de Saída")
+    date_entry = models.DateField(verbose_name="Data Entrada")
+    date_exit = models.DateField(null=True, blank=True, verbose_name="Data Saída")
 
     def __str__(self):
-        return self.animal.name + " - " + str(self.entry_date)
+        return self.animal.name + " - " + str(self.date_entry)

@@ -71,7 +71,7 @@
                             <h5 style="padding-bottom:0.1em;">Informações Gerais</h5>
                             <p><strong>Nome:</strong> {{ animal.name }}<strong style="padding-left:5em;">Sexo:</strong>  {{ animal.sex }}</p>
                             <p><strong>Acolhimento:</strong> {{ animal.shelter_category }}</p>
-                            <p><strong>Data de Nascimento:</strong> {{ animal.birthday|date:'d/m/Y' }}</p>
+                            <p><strong>Data de Nascimento:</strong> {{ animal.day_of_birth|date:'d/m/Y' }}</p>
                             <p><strong>Raça:</strong> {{ animal.breed }} ({{ animal.species }})</p>
                             <p><strong>Observações:</strong> {{ animal.observation }}</p>
 {#                            <h5 style="padding-bottom:0.1em;">Histórico Clínico#}
