@@ -33,7 +33,7 @@ class UserCreateForm(UserCreationForm):
         self.fields['name'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite o nome'}
         self.fields['email'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a e-mail'}
         self.fields['date_of_birth'].widget.attrs = {'class': 'form-control',
-                                                     'placeholder': 'Digite a data de nascimento'}
+                                                     'placeholder': 'DD/MM/AAAA'}
         self.fields['password1'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a senha'}
         self.fields['password2'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a senha novamente'}
 
