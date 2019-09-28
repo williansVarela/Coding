@@ -19,15 +19,15 @@ from django.urls import path, include
 from core.views import (LoginView, HomeView, register_user, change_password, UpdateProfile, list_users, disable_user,
                         active_user, delete_user)
 
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('django.contrib.auth.urls')),
     path('user/disable/<int:pk>', disable_user, name='disable_user'),
     path('user/active/<int:pk>', active_user, name='active_user'),
     path('user/delete/<int:pk>', delete_user, name='delete_user'),
+
     path('animals/', include('animal.urls')),
+    path('contacts/', include('contacts.urls')),
 
     url(r'^$', HomeView.as_view(), name='home'),
     url('login/', LoginView.as_view(), name='login'),
@@ -35,6 +35,5 @@ urlpatterns = [
     url(r'user/all/$', list_users, name='list_users'),
     url(r'user/password/$', change_password, name='change_password'),
     url(r'profile/update/$', UpdateProfile.as_view(), name='update_profile'),
-
 
 ]
