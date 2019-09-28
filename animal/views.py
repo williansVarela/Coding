@@ -10,7 +10,7 @@ def animal(request):
     for animal_obj in Animal.objects.all():
         shelter_objs = Shelter.objects.filter(animal=animal_obj.id)
         if len(shelter_objs) > 0:
-            shelter_category = shelter_objs.order_by('-entry_date')[0].category
+            shelter_category = shelter_objs.order_by('-date_entry')[0].category
             animal_obj.shelter_category = shelter_category
         else:
             animal_obj.shelter_category = None
