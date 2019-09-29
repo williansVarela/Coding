@@ -75,9 +75,9 @@
                     <div class="modal-body">
                         <p>
                             <img src="{% static 'img/envelope-solid.svg' %}" width="24rem"> {{ object.person.email }}
-                            <br />
+                            <br>
                             <img src="{% static 'img/phone-square-alt-solid.svg' %}" width="24rem"> {{ object.phone }}
-                            <br />
+                            <br>
                             {% if object.type == 'volunteer' %}
                                 <img src="{% static 'img/grin-hearts-regular.svg' %}" width="24rem"> Voluntário
                             {% elif object.type == 'vet' %}
