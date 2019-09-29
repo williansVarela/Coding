@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 class StateField(CharField):
     """A model field for states of Brazil."""
 
-    description = _("State of Brazil (two uppercase letters)")
+    description = _("Estados do Brasil (duas letras em maiusculo).")
 
     def __init__(self, *args, **kwargs):
         kwargs['choices'] = STATE_CHOICES
@@ -27,12 +27,25 @@ class ZipCodeField(CharField):
     A model field for the brazilian zip code
     """
 
-    description = _("Zip Code")
+    description = _("CEP")
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = 9
         super().__init__(*args, **kwargs)
         self.validators.append(validators.ZipCodeValidator())
+
+
+class PhoneField(CharField):
+    """
+    A model field for the brazilian phone
+    """
+
+    description = _("Telefone")
+
+    def __init__(self, *args, **kwargs):
+        kwargs['max_length'] = 13
+        super().__init__(*args, **kwargs)
+        self.validators.append(validators.PhoneValidator())
 
 
 class Address(models.Model):
@@ -73,7 +86,7 @@ class Person(models.Model):
 
 class Contact(models.Model):
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
-    phone = models.CharField(max_length=12, verbose_name='Telefone de contato')
+    phone = PhoneField(null=True, verbose_name='Telefone')
     _IS_ADOPTER_CHOICES = ((False, "Não"), (True, "Sim"))
     is_adopter = models.BooleanField(default=False, choices=_IS_ADOPTER_CHOICES, verbose_name='Adotou animal?')
     _TYPE_CHOICES = (('volunteer', "Voluntário"), ('donor', "Doador"), ('vet', "Veterinário"), ('partner', "Parceiro"))

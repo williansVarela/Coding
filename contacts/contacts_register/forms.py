@@ -45,7 +45,7 @@ class ContactForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
 
-        self.fields['phone'].widget.attrs = {'class': 'form-control', 'placeholder': 'xx-xxxxxxxxx'}
+        self.fields['phone'].widget.attrs = {'class': 'form-control', 'placeholder': 'xx-xxxx-xxxx'}
         self.fields['is_adopter'].widget.attrs = {'class': 'form-control'}
         self.fields['type'].widget.attrs = {'class': 'form-control'}
         self.fields['type'].required = True

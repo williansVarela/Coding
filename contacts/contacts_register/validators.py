@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 
 postal_code_re = re.compile(r'^\d{5}-\d{3}$')
+phone_digits_re = re.compile(r'^\d{2}\-\d{4,5}\-\d{4}$')
 cnpj_digits_re = re.compile(r'^(\d{2})[.-]?(\d{3})[.-]?(\d{3})/(\d{4})-(\d{2})$')
 cpf_digits_re = re.compile(r'^(\d{3})\.(\d{3})\.(\d{3})-(\d{2})$')
 
@@ -21,9 +22,20 @@ class ZipCodeValidator(RegexValidator):
     """
 
     def __init__(self, *args, **kwargs):
-        self.message = _('Enter a postal code in the format 00000-000.')
-        self.code = _('Invalid Postal Code')
+        self.message = _('Digite um CEP no formato 00000-000.')
+        self.code = _('CEP inválido.')
         super().__init__(postal_code_re, *args, **kwargs)
+
+
+class PhoneValidator(RegexValidator):
+    """
+    A validator for Brazilian Phone.
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.message = _('Digite um número no formato: XX-XXXX-XXXX ou XX-XXXXX-XXXX.')
+        self.code = _('Número inválido.')
+        super().__init__(phone_digits_re, *args, **kwargs)
 
 
 class CNPJValidator(RegexValidator):
