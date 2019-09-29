@@ -1,0 +1,56 @@
+{% extends 'base_list.html' %}
+
+{% block table_content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th class="text-center">Telefone</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for object in contacts %}
+            <tr>
+                <td>{{object.person.name}}</td>
+                <td>{{object.person.email}}</td>
+                <td class="text-center align-middle">{{object.phone}}</td>
+                <td class="text-center align-middle">
+                    {% if object.type == 'volunteer' %}
+                        Voluntário
+                    {% elif object.type == 'vet' %}
+                        Veterinário
+                    {% elif object.type == 'donor'%}
+                        Doador
+                    {% else %}
+                        Parceiro
+                    {% endif %}
+                </td>
+                <td class="text-center align-middle">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
+                        <span style="font-size: 1.5em; color: #F20505">
+                            <i class="fas fa-trash-alt"></i></em>
+                        </span>
+                    </button>
+                </td>
+            </tr>
+
+            {% include confirm_modal %}
+
+        {% endfor %}
+    </tbody>
+
+{% endblock %}
