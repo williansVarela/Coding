@@ -1,4 +1,5 @@
 {% extends 'base_list.html' %}
+{% load static %}
 
 {% block table_content %}
     {% if messages %}
@@ -18,7 +19,7 @@
             <th>E-mail</th>
             <th class="text-center">Telefone</th>
             <th class="text-center">Tipo</th>
-            <th class="text-center">Ações</th>
+            <th class="text-center" style="width: 18%">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -40,9 +41,22 @@
                     {% endif %}
                 </td>
                 <td class="text-center align-middle">
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
-                        <span style="font-size: 1.5em; color: #F20505">
-                            <i class="fas fa-trash-alt"></i></em>
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#object_{{object.id}}_info" role="button" title="Informações">
+                        <span style="font-size: 1em; color: #f0f0f0">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </button>
+
+                    <a href="#" class="btn btn-success" title="Editar">
+                        <span style="font-size: 1em; color: #f0f0f0">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                    </a>
+
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
+                        <span style="font-size: 1em; color: #f0f0f0">
+                            <i class="fas fa-trash-alt"></i>
                         </span>
                     </button>
                 </td>
@@ -50,6 +64,56 @@
 
             {% include confirm_modal %}
 
+            <!-- Full Info Modal -->
+            <div class="modal fade" id="object_{{object.id}}_info" role="dialog">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{{ object.person.name }}</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <img src="{% static 'img/envelope-solid.svg' %}" width="18rem"> {{ object.person.email }}
+                            <br />
+                            <img src="{% static 'img/phone-square-alt-solid.svg' %}" width="18rem"> {{ object.phone }}
+                            <br />
+                            {% if object.type == 'volunteer' %}
+                                <img src="{% static 'img/grin-hearts-regular.svg' %}" width="18rem"> Voluntário
+                            {% elif object.type == 'vet' %}
+                                <img src="{% static 'img/dog-solid.svg' %}" width="18rem"> Veterinário
+                            {% elif object.type == 'donor'%}
+                                <img src="{% static 'img/hand-holding-heart-solid.svg' %}" width="18rem"> Doador
+                            {% else %}
+                                <img src="{% static 'img/building-regular.svg' %}" width="18rem"> Parceiro
+                            {% endif %}
+                            -
+                            {% if object.is_adopter %}
+                                <img src="{% static 'img/smile-regular.svg' %}" width="18rem"> Já adotou
+                            {% else %}
+                                <img src="{% static 'img/meh-regular.svg' %}" width="18rem"> Nunca adotou
+                            {% endif %}
+                        </p>
+                        <div class="line" style="margin: 15px 0"></div>
+                        <p>
+                            <b>Endereço:</b>
+                            <br>
+                            {{ object.person.address.city }}, {{ object.person.address.state }} - CEP {{ object.person.address.zipcode }}
+                            <br>
+                            {{ object.person.address.address }}, {{ object.person.address.number }} {% if object.person.address.complement %}- {{ object.person.address.complement }} {% endif %}
+                            <br>
+                            {{ object.person.address.district }}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#">
+                            <button type="button" class="btn btn-success">Editar</button>
+                        </a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
         {% endfor %}
     </tbody>
 
