@@ -1,1 +1,10 @@
-<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt" class="svg-inline--fa fa-map-marker-alt fa-w-12" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" width="1024px" height="768px" viewBox="0 0 1024 768" enable-background="new 0 0 1024 768" xml:space="preserve"
+	>
+<path fill="#3F79E8" d="M482.402,752.505C264.455,436.547,224,404.119,224,288C224,128.941,352.941,0,512,0s288,128.941,288,288
+	c0,116.119-40.455,148.547-258.402,464.505C527.296,773.166,496.703,773.164,482.402,752.505z M512,408c66.274,0,120-53.726,120-120
+	s-53.726-120-120-120s-120,53.726-120,120S445.726,408,512,408z"/>
+</svg>

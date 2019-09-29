@@ -70,7 +70,7 @@ class Address(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome Completo')
-    email = models.EmailField(max_length=255, unique=True, verbose_name='E-mail')
+    email = models.EmailField(max_length=255, verbose_name='E-mail')
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.DO_NOTHING)
 
     # Timestamps

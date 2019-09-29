@@ -48,7 +48,7 @@
                         </span>
                     </button>
 
-                    <a href="#" class="btn btn-success" title="Editar">
+                    <a href="{% url 'contacts:edit_contact' object.id %}" class="btn btn-success" title="Editar">
                         <span style="font-size: 1em; color: #f0f0f0">
                             <i class="fas fa-pencil-alt"></i>
                         </span>
@@ -74,24 +74,24 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            <img src="{% static 'img/envelope-solid.svg' %}" width="18rem"> {{ object.person.email }}
+                            <img src="{% static 'img/envelope-solid.svg' %}" width="24rem"> {{ object.person.email }}
                             <br />
-                            <img src="{% static 'img/phone-square-alt-solid.svg' %}" width="18rem"> {{ object.phone }}
+                            <img src="{% static 'img/phone-square-alt-solid.svg' %}" width="24rem"> {{ object.phone }}
                             <br />
                             {% if object.type == 'volunteer' %}
-                                <img src="{% static 'img/grin-hearts-regular.svg' %}" width="18rem"> Voluntário
+                                <img src="{% static 'img/grin-hearts-regular.svg' %}" width="24rem"> Voluntário
                             {% elif object.type == 'vet' %}
-                                <img src="{% static 'img/dog-solid.svg' %}" width="18rem"> Veterinário
+                                <img src="{% static 'img/dog-solid.svg' %}" width="24rem"> Veterinário
                             {% elif object.type == 'donor'%}
-                                <img src="{% static 'img/hand-holding-heart-solid.svg' %}" width="18rem"> Doador
+                                <img src="{% static 'img/hand-holding-heart-solid.svg' %}" width="24rem"> Doador
                             {% else %}
-                                <img src="{% static 'img/building-regular.svg' %}" width="18rem"> Parceiro
+                                <img src="{% static 'img/building-regular.svg' %}" width="24rem"> Parceiro
                             {% endif %}
                             -
                             {% if object.is_adopter %}
-                                <img src="{% static 'img/smile-regular.svg' %}" width="18rem"> Já adotou
+                                <img src="{% static 'img/smile-regular.svg' %}" width="24rem"> Já adotou
                             {% else %}
-                                <img src="{% static 'img/meh-regular.svg' %}" width="18rem"> Nunca adotou
+                                <img src="{% static 'img/meh-regular.svg' %}" width="24rem"> Nunca adotou
                             {% endif %}
                         </p>
                         <div class="line" style="margin: 15px 0"></div>
@@ -106,7 +106,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <a href="#">
+                        <a href="{% url 'contacts:edit_contact' object.id %}">
                             <button type="button" class="btn btn-success">Editar</button>
                         </a>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>

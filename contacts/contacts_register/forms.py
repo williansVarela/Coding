@@ -27,6 +27,7 @@ class AddressForm(ModelForm):
     class Meta:
         model = Address
         fields = '__all__'
+        exclude = ('created_at',)
 
 
 class PersonForm(ModelForm):
@@ -38,7 +39,7 @@ class PersonForm(ModelForm):
 
     class Meta:
         model = Person
-        exclude = ('address',)
+        exclude = ('address','created_at',)
 
 
 class ContactForm(ModelForm):
@@ -52,4 +53,4 @@ class ContactForm(ModelForm):
 
     class Meta:
         model = Contact
-        exclude = ('person',)
+        exclude = ('person','created_at',)
