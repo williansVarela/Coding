@@ -42,7 +42,7 @@ class Address(models.Model):
     complement = models.CharField(max_length=25, null=True, verbose_name='Complemento')
     district = models.CharField(max_length=50, null=True, verbose_name='Bairro')
     city = models.CharField(max_length=50, null=True, verbose_name='Município')
-    state = StateField(null=True, verbose_name='Estado')
+    state = StateField(default='SP', null=True, verbose_name='Estado')
 
     # Timestamps
     created_at = models.DateTimeField(auto_now_add=True)
@@ -57,7 +57,7 @@ class Address(models.Model):
 
 class Person(models.Model):
     name = models.CharField(max_length=100, verbose_name='Nome Completo')
-    email = models.EmailField(max_length=255, unique=True, verbose_name='Endereço de email')
+    email = models.EmailField(max_length=255, unique=True, verbose_name='E-mail')
     address = models.ForeignKey(Address, null=True, blank=True, on_delete=models.DO_NOTHING)
 
     # Timestamps
@@ -75,7 +75,7 @@ class Contact(models.Model):
     person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
     phone = models.CharField(max_length=12, verbose_name='Telefone de contato')
     _IS_ADOPTER_CHOICES = ((False, "Não"), (True, "Sim"))
-    is_adopter = models.BooleanField(default=False, choices=_IS_ADOPTER_CHOICES)
+    is_adopter = models.BooleanField(default=False, choices=_IS_ADOPTER_CHOICES, verbose_name='Adotou animal?')
     _TYPE_CHOICES = (('volunteer', "Voluntário"), ('donor', "Doador"), ('vet', "Veterinário"), ('partner', "Parceiro"))
     type = models.CharField(max_length=12, null=True, blank=True, choices=_TYPE_CHOICES, verbose_name='Tipo de contato')
 

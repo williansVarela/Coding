@@ -71,10 +71,20 @@
             </ul>
         </li>
         <li class={{contacts_active}}>
-            <a href="#">
+            <a href="#contactsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                 <i class="fas fa-address-book"></i>
                 <span class="toggle">Contatos</span>
             </a>
+            <ul class="collapse list-unstyled" id="contactsSubmenu">
+                <li>
+                    <a href="{% url 'contacts:home' %}">Lista de Contatos</a>
+                </li>
+            </ul>
+            <ul class="collapse list-unstyled" id="contactsSubmenu">
+                <li>
+                    <a href="{% url 'contacts:create_contact' %}">Criar Novo Contato</a>
+                </li>
+            </ul>
         </li>
         {% if user.is_admin %}
         <li class={{admin_active}}>
