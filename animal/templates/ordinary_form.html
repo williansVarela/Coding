@@ -1,16 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'pre_base.html' %}
 
 {% block content %}
 
     <div class="col-md-6">
+        <h4>{{ pagina }}</h4>
         <form method="POST" role="form">
-
             {% csrf_token %}
             {{ form.as_p }}
-
             <button type="submit" id="btn-send" class="btn btn-primary">Salvar</button>
         </form>
     </div>
-
 
 {% endblock %}
