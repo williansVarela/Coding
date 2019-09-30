@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'animal',
     'contacts',
     'contacts.contacts_register',
+    'volunteers',
 ]
 
 MIDDLEWARE = [
