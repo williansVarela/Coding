@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .forms import AnimalForm, SpeciesForm, BreedForm, ShelterForm, ShelterAnimalForm
-from .models import Animal, Shelter
+from django.http import HttpResponse, HttpResponseRedirect
+from .forms import AnimalForm, SpeciesForm, BreedForm, ShelterForm, ShelterAnimalForm, ClinicalLogForm
+from .models import Animal, Shelter, ClinicalLog
 
 
 def animal(request):
@@ -16,6 +16,9 @@ def animal(request):
             animal_obj.shelter_category = None
 
         animal_obj.shelters = shelter_objs
+
+        clinical_log_objs = ClinicalLog.objects.filter(animal=animal_obj.id).order_by('-date')
+        animal_obj.clinical_log_objs = clinical_log_objs
         animals.append(animal_obj)
 
     context = {'pagina': 'Lista de Animais', 'page_title': 'Animais'}
@@ -88,18 +91,25 @@ def new_breed_popup(request):
     return render(request, "ordinary_form.html", context)
 
 
-# def new_healthlog_popup(request, pk):
-#     healthlog_form = HealthLogForm(request.POST or None)
+def new_clinical_log_popup(request, pk):
+    clinical_log_form = ClinicalLogForm(request.POST or None)
 #
-#     if healthlog_form.is_valid():
-#         healthlog_obj = healthlog_form.save(False)
-#         healthlog_obj.animal = Animal.objects.get(pk=pk)
-#         healthlog_obj.save()
-#         return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_healthlog");</script>' % (healthlog_obj.pk, healthlog_obj))
+    if clinical_log_form.is_valid():
+        clinical_log_obj = clinical_log_form.save(False)
+        clinical_log_obj.animal = Animal.objects.get(pk=pk)
+        clinical_log_obj.save()
+
+        return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_clinical_log");</script>' % (clinical_log_obj.pk, clinical_log_obj))
 #
-#     context = {'pagina': 'Nova Informação Clínica', 'page_title': 'Nova Informação Clínica'}
-#     context['form'] = healthlog_form
-#     return render(request, "healthlog_form.html", context)
+    context = {'pagina': f'Nova Informação Clínica para {Animal.objects.get(pk=pk).name}', 'page_title': 'Nova Informação Clínica'}
+    context['form'] = clinical_log_form
+    return render(request, "ordinary_form.html", context)
+
+
+def del_clinical_log(request, pk):
+    clinical_log_obj = ClinicalLog.objects.get(pk=pk)
+    clinical_log_obj.delete()
+    return redirect('animal')
 
 
 def shelter(request):
@@ -138,3 +148,5 @@ def del_shelter(request, pk):
     shelter_obj = Shelter.objects.get(pk=pk)
     shelter_obj.delete()
     return redirect('shelter')
+
+

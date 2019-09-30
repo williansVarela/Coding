@@ -74,28 +74,30 @@
                             <p><strong>Data de Nascimento:</strong> {{ animal.day_of_birth|date:'d/m/Y' }}</p>
                             <p><strong>Raça:</strong> {{ animal.breed }} ({{ animal.species }})</p>
                             <p><strong>Observações:</strong> {{ animal.observation }}</p>
-{#                            <h5 style="padding-bottom:0.1em;">Histórico Clínico#}
-{#                                <a href="{% url 'new_healthlog_popup' animal.id %}" id="add-healthlog" onclick="return showAddPopup(this);">#}
-{#                                    <button type="button" class="btn btn-default" role="button" title="Nova Informação Clínica">#}
-{#                                        <span style="font-size: 1.5em; color: #31af91">#}
-{#                                            <i class="fas fa-plus"></i>#}
-{#                                        </span>#}
-{#                                    </button>#}
-{#                                </a>#}
-{#                            </h5>#}
-{#                            <ul>#}
-{#                                {% for healthlog in animal.healthlogs %}#}
-{#                                    <li style="font-size:15px; margin-bottom:10px;">{{ healthlog.date|date:'d/m/Y' }} - {{ healthlog.health }}{% if healthlog.observation != '' %} - {{ healthlog.observation }}{% endif %} </li>#}
-{#                                {% endfor %}#}
-{#                            </ul>#}
+                            <h5 style="padding-bottom:0.1em;">Histórico Clínico
+                                <a href="{% url 'new_clinical_log_popup' animal.id %}" id="add-clinical-log" onclick="return showAddPopup(this, 500, 300);">
+                                    <button type="button" class="btn btn-default" role="button" title="Nova Informação Clínica">
+                                        <span style="font-size: 1.5em; color: #31af91">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </button>
+                                </a>
+                            </h5>
+                            <ul>
+                                {% for clinical_log in animal.clinical_log_objs %}
+                                    <li style="font-size:15px; margin-bottom:10px;">
+                                        {{ clinical_log.date|date:'d/m/Y' }} - {{ clinical_log.clinical_condition }}
+                                        <a href="{% url 'del_clinical_log' pk=clinical_log.id %}">
+                                            <button type="button" style="background-color: transparent; border: 0;" title="Remover">&times;</button>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
 
 
 
                         </div>
                         <div class="modal-footer">
-                            <a href="{% url 'update_profile' %}">
-                            <button type="button" class="btn btn-info">Editar</button>
-                            </a>
                             <button type="button" class="btn btn-success" data-dismiss="modal">Fechar</button>
                         </div>
                     </div>

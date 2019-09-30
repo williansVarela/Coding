@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from .models import Animal, Species, Breed, Shelter
+from .models import Animal, Species, Breed, Shelter, ClinicalLog
 
 
 class AnimalForm(forms.ModelForm):
@@ -66,7 +66,6 @@ class ShelterForm(forms.ModelForm):
             'date_exit': _('Data de Saída'),
         }
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -86,10 +85,26 @@ class ShelterAnimalForm(forms.ModelForm):
             'date_exit': _('Data de Saída'),
         }
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['category'].widget.attrs = {'class': 'form-control'}
         self.fields['date_entry'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
         self.fields['date_exit'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
+
+
+class ClinicalLogForm(forms.ModelForm):
+    class Meta:
+        model = ClinicalLog
+        fields = ['clinical_condition', 'date']
+        labels = {
+            'clinical_condition': _('Informação Clínica'),
+            'date': _('Data')
+        }
+
+    def __init(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['clinical_condition'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a informação clínica'}
+        self.fields['date'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
+
