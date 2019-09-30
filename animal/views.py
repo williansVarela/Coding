@@ -148,5 +148,3 @@ def del_shelter(request, pk):
     shelter_obj = Shelter.objects.get(pk=pk)
     shelter_obj.delete()
     return redirect('shelter')
-
-
