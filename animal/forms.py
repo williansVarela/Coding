@@ -31,16 +31,65 @@ class SpeciesForm(forms.ModelForm):
     class Meta:
         model = Species
         fields = ['name']
+        labels = {'name': _('Espécie'),}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['name'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite o nome da nova espécie'}
 
 
 class BreedForm(forms.ModelForm):
     class Meta:
         model = Breed
         fields = ['species', 'name']
+        labels = {
+            'species': _('Espécie'),
+            'name': _('Raça'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['species'].widget.attrs = {'class': 'form-control'}
+        self.fields['name'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite o nome da nova raça'}
 
 
 class ShelterForm(forms.ModelForm):
     class Meta:
         model = Shelter
         fields = ['animal', 'category', 'date_entry', 'date_exit']
+        labels = {
+            'animal': _('Animal'),
+            'category': _('Tipo de Acolhimento'),
+            'date_entry': _('Data de Entrada'),
+            'date_exit': _('Data de Saída'),
+        }
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['animal'].widget.attrs = {'class': 'form-control'}
+        self.fields['category'].widget.attrs = {'class': 'form-control'}
+        self.fields['date_entry'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
+        self.fields['date_exit'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
+
+
+class ShelterAnimalForm(forms.ModelForm):
+    class Meta:
+        model = Shelter
+        fields = ['category', 'date_entry', 'date_exit']
+        labels = {
+            'category': _('Tipo de Acolhimento'),
+            'date_entry': _('Data de Entrada'),
+            'date_exit': _('Data de Saída'),
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['category'].widget.attrs = {'class': 'form-control'}
+        self.fields['date_entry'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
+        self.fields['date_exit'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}

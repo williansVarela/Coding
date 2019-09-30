@@ -3,6 +3,7 @@
 {% block content %}
 
     <div class="col-md-6">
+        <h4>{{ pagina }}</h4>
         <form method="POST" role="form">
 
             {% csrf_token %}
@@ -24,7 +25,7 @@
 
             <p>
                 <label for="id_species">Espécie:</label>
-                <a href="{% url 'new_species_popup' %}" id="add-species" onclick="return showAddPopup(this);">
+                <a href="{% url 'new_species_popup' %}" id="add-species" onclick="return showAddPopup(this, 500, 210);">
                      <button type="button" class="btn btn-default" role="button" title="Nova Espécie">
                          <span style="font-size: 1.5em; color: #31af91">
                             <i class="fas fa-plus"></i>
@@ -37,7 +38,7 @@
 
             <p>
                 <label for="id_breed">Raça:</label>
-                <a href="{% url 'new_breed_popup' %}" id="add-breed" onclick="return showAddPopup(this);">
+                <a href="{% url 'new_breed_popup' %}" id="add-breed" onclick="return showAddPopup(this, 500, 300);">
                     <button type="button" class="btn btn-default" role="button" title="Nova Raça">
                         <span style="font-size: 1.5em; color: #31af91">
                             <i class="fas fa-plus"></i>
@@ -51,31 +52,31 @@
                 <label for="id_observation">Observação:</label>
                 {{ animal_form.observation }}
             </p>
-            
 
-{#            {% if action == 'create' %}#}
-{#                <h5>Informações de Acolhimento</h5>#}
-{#                <p><label for="shelter-person">Acolhedor</label>#}
-{#                    {{ shelter_form.person }}#}
-{#                </p>#}
-{#                <p><label for="shelter-category">Tipo</label>#}
-{#                    {{ shelter_form.category }}#}
-{#                    <select name="category" class="form-control" required id="id_category">#}
-{#                        <option value="Temporário" selected="">Temporário</option>#}
-{#                        <option value="Adoção">Adoção</option>#}
-{#                    </select>#}
-{#                </p>#}
-{##}
-{#                <p><label for="shelter-entry-date">Data de Entrada</label>#}
-{#                    {{ shelter_form.entry_date }}#}
-{#                    <input type="text" name="entry_date" class="form-control" placeholder="dd/mm/aaaa" required id="id_entry_date">#}
-{#                </p>#}
-{#            {% endif %}#}
+
+            {% if is_creation == True %}
+                <p><h4>Informações de Acolhimento</h4></p>
+
+                <p>
+                    <label for="id_category">Tipo de Acolhimento:</label>
+                    {{ shelter_form.category }}
+                </p>
+
+                <p>
+                    <label for="id_date_entry">Data de Entrada:</label>
+                    {{ shelter_form.date_entry }}
+                </p>
+
+                <p>
+                    <label for="id_date_exit">Data de Saída:</label>
+                    {{ shelter_form.date_exit }}
+                </p>
+            {% endif %}
 
             <button type="submit" id="btn-send" class="btn btn-primary">Criar</button>
         </form>
     </div>
 
-{% include 'popup_form.html' %}
+{% include 'popup_script.html' %}
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .forms import AnimalForm, SpeciesForm, BreedForm, ShelterForm
+from .forms import AnimalForm, SpeciesForm, BreedForm, ShelterForm, ShelterAnimalForm
 from .models import Animal, Shelter
 
 
@@ -16,9 +16,6 @@ def animal(request):
             animal_obj.shelter_category = None
 
         animal_obj.shelters = shelter_objs
-
-        # healthlog_objs = HealthLog.objects.filter(animal=animal_obj.id).order_by('-date')
-        # animal_obj.healthlogs = healthlog_objs
         animals.append(animal_obj)
 
     context = {'pagina': 'Lista de Animais', 'page_title': 'Animais'}
@@ -28,20 +25,20 @@ def animal(request):
 
 def new_animal(request):
     animal_form = AnimalForm(request.POST or None)
-    # shelter_form = ShelterForm(request.POST or None)
+    shelter_form = ShelterAnimalForm(request.POST or None)
 
     if animal_form.is_valid():
         animal_obj = animal_form.save()
-        # shelter_obj = shelter_form.save(False)
-        # shelter_obj.animal = animal_obj
-        # shelter_obj.exit_date = None
-        # shelter_obj.save()
+        if shelter_form.is_valid():
+            shelter_obj = shelter_form.save(False)
+            shelter_obj.animal = animal_obj
+            shelter_obj.save()
         return redirect('animal')
 
     context = {'pagina': 'Novo Animal', 'page_title': 'Novo Animal'}
     context['animal_form'] = animal_form
-    # context['shelter_form'] = shelter_form
-    # context['action'] = 'create'
+    context['shelter_form'] = shelter_form
+    context['is_creation'] = True
     return render(request, 'animal_form.html', context)
 
 
@@ -74,8 +71,9 @@ def new_species_popup(request):
         instance = form.save()
         return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_species");</script>' % (instance.pk, instance))
 
+    context = {'pagina': 'Nova Espécie', 'page_title': 'Nova Espécie'}
     context['form'] = form
-    return render(request, "species_form.html", context)
+    return render(request, "ordinary_form.html", context)
 
 
 def new_breed_popup(request):
@@ -87,7 +85,7 @@ def new_breed_popup(request):
 
     context = {'pagina': 'Nova Raça', 'page_title': 'Nova Raça'}
     context['form'] = form
-    return render(request, "breed_form.html", context)
+    return render(request, "ordinary_form.html", context)
 
 
 # def new_healthlog_popup(request, pk):
