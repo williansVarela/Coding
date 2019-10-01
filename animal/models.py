@@ -3,6 +3,9 @@ from django.db import models
 
 class Species(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name="Espécie")
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -10,11 +13,15 @@ class Species(models.Model):
     def save(self, force_insert=False, force_update=False):
         self.name = self.name.title()
         super(Species, self).save(force_insert, force_update)
+        
 
 
 class Breed(models.Model):
     name = models.CharField(max_length=30, verbose_name="Raça")
     species = models.ForeignKey(Species, on_delete=models.CASCADE, verbose_name="Espécie")
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -35,6 +42,9 @@ class Animal(models.Model):
     species = models.ForeignKey(Species, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Espécie")
     breed = models.ForeignKey(Breed, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Raça")
     observation = models.CharField(max_length=140, null=True, blank=True, verbose_name="Observação")
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -48,6 +58,9 @@ class ClinicalLog(models.Model):
     clinical_condition = models.CharField(max_length=55, verbose_name="Estado Clínico")
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name="Animal")
     date = models.DateField(verbose_name="Data")
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.clinical_condition
@@ -64,6 +77,9 @@ class Shelter(models.Model):
     category = models.CharField(max_length=10, choices=SHELTER_CHOICES, verbose_name="Categoria")
     date_entry = models.DateField(verbose_name="Data Entrada")
     date_exit = models.DateField(null=True, blank=True, verbose_name="Data Saída")
-
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return self.person.person.name + " <- " + self.animal.name + " - " + str(self.date_entry)
