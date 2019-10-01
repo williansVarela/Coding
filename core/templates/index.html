@@ -2,14 +2,13 @@
 {% load static %}
 {% now 'Y-m' as current_month %}
 {% now 'Y' as current_year %}
-{% now 'Y-m' as current_month %}
 
-{% block css_base %}
+
+{% block extra_css %}
     <link href="{% static 'plugins/webdatarocks/webdatarocks.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/cards.css' %}" rel="stylesheet">
-    <script src="{% static 'plugins/webdatarocks/webdatarocks.toolbar.min.js' %}"></script>
-    <script src="{% static 'plugins/webdatarocks/webdatarocks.js' %}"></script>
     <style>
+
         #container-graficos {
             -webkit-flex: 1;  /* Safari 6.1+ */
             -ms-flex: 1;  /* IE 10 */  
@@ -22,6 +21,10 @@
             display: flex;
             flex-flow: row wrap;
             display: -webkit-flex; /* Safari */
+        }
+
+        #grafico {
+            border-radius: 5px;
         }
     
        
@@ -143,24 +146,28 @@
     <h3>Bem-vindo, {{ user.name }}.</h3>
 
     <div id="container-graficos">
-        <div id="chart_animals" class="grafico" style="width: 35%; height: 20em"></div>
+        <div class="card-stats card" style="width: 35%; height: 20em">
+            <div class="card-body">
+                    <h5 class="text-center">Agenda da Semana</h5>
+                    <div class="line"></div>
+                    <p>Lorem Ipsum Dolor</p>
+            </div>
+        </div>
+
         <div id="chart_donations" class="grafico" style="width: 62%; height: 20em;"></div>
     </div>
 
     <div id="container-graficos">
-        <div id="chart_revenue_expenses" class="grafico" style="width: 49%; height: 400px;"></div>
-        <div id="chart_" class="grafico" style="width: 49%; height: 400px;"></div>
+        <div id="chart_animals" class="grafico" style="width: 48%; height: 25em"></div>
+        <div id="chart_finance" class="grafico" style="width: 48%; height: 25em;"></div>
     </div>
-
-    <h2>Lorem Ipsum Dolor</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 {% endblock %}
 
 {% block js %}
+    <script src="{% static 'plugins/webdatarocks/webdatarocks.toolbar.min.js' %}"></script>
+    <script src="{% static 'plugins/webdatarocks/webdatarocks.js' %}"></script>
+    
     <script type="text/javascript">
 
         function getFormattedDate(date) {
@@ -190,7 +197,7 @@
     <script type="text/javascript">
         
         // Load the Visualization API and the corechart package.
-        google.charts.load('current', {'packages':['corechart', 'line']});
+        google.charts.load('current', {'packages':['corechart', 'line', 'bar']});
         // Set a callback to run when the Google Visualization API is loaded.
         google.charts.setOnLoadCallback(drawChart);
 
@@ -279,6 +286,41 @@
                 },
             };
 
+
+            // Gráfico de financias
+            var finances_data = new google.visualization.arrayToDataTable([
+            ['Tipo', 'R$'],
+            ["King's pawn", 44],
+            ["Queen's pawn ", 31],
+            ["Knight to King 3", 12],
+            ["Queen's bishop pawn", 10],
+            ['Other', 3]
+            ]);
+
+            var financeChartOptions = {
+            title: 'Despesas',
+            legend: { position: 'none' },
+            titleTextStyle: {
+                color: '#E68C00',
+                fontSize: 20,
+            },
+            backgroundColor: {
+                stroke: '#d3d3d3',
+                strokeWidth: 3,
+            },
+            vAxis: {
+                title: 'valor (R$)',
+            },
+            chart: { title: 'Despesas',
+                    subtitle: 'Por categoria' },
+            axes: {
+                x: {
+                0: { side: 'top', label: 'R$'} // Top x-axis.
+                }
+            },
+            bar: { groupWidth: "90%" }
+            };
+
             // Instantiate and draw our chart, passing in some options.
             
             // Animals Chart
@@ -288,6 +330,10 @@
             // Donations Chart
             var chartDonations = new google.visualization.LineChart(document.getElementById('chart_donations'));
             chartDonations.draw(donations_data, donationChartOpetions);
+
+            // Finance Chart
+            var chartFinance = new google.visualization.ColumnChart(document.getElementById('chart_finance'));
+            chartFinance.draw(finances_data, financeChartOptions);
         }
     </script>
 

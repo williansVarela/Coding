@@ -53,6 +53,8 @@ a:focus {
     margin: 0px 0px 20px;
 }
 
+
+
 i,
 span {
     display: inline-block;
@@ -289,3 +291,16 @@ a.article:hover {
     padding-left: 2rem;
 }
 
+#container-graficos {
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */  
+    flex: 1;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 2em;
+    margin-left: 0px;
+    margin-bottom: 3em;
+    display: flex;
+    flex-flow: row wrap;
+    display: -webkit-flex; /* Safari */
+}
