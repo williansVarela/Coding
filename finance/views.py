@@ -16,31 +16,27 @@ def expense_detail(request, pk):
     return render(request, 'finance/expense_detail.html', context)
 
 def expense_new(request):
-    if request.method == "POST":
-        form = ExpenseForm(request.POST)
-        if form.is_valid():
-            expense = form.save(commit=False)
-            expense.created_at = timezone.now()
-            expense.status = "A"
-            expense.save()
-            return redirect('expense_detail', pk=expense.pk)
-    else:
-        form = ExpenseForm()
-        context = {'pagina': 'Despesas', 'page_title': 'Despesas', 'form': form}
+    form = ExpenseForm(request.POST or None)
+    if form.is_valid():
+        expense = form.save(commit=False)
+        expense.created_at = timezone.now()
+        expense.status = "A"
+        expense.save()
+        return redirect('expense_detail', pk=expense.pk)
+    
+    context = {'pagina': 'Despesas', 'page_title': 'Despesas', 'form': form}
     return render(request, 'finance/expense_edit.html', context)
 
 def expense_edit(request, pk):
     expense = Expense.objects.get(pk=pk)
-    if request.method == "POST":
-        form = ExpenseForm(request.POST, instance=expense)
-        if form.is_valid():
-            expense = form.save(commit=False)
-            expense.updated_at = timezone.now()
-            expense.save()
-            return redirect('expense_detail', pk=expense.pk)
-    else:
-        form = ExpenseForm(instance=expense)
-        context = {'pagina': 'Despesas', 'page_title': 'Despesas', 'form': form}
+    form = ExpenseForm(request.POST or None, instance=expense)
+    if form.is_valid():
+        expense = form.save(commit=False)
+        expense.updated_at = timezone.now()
+        expense.save()
+        return redirect('expense_detail', pk=expense.pk)
+
+    context = {'pagina': 'Despesas', 'page_title': 'Despesas', 'form': form}
     return render(request, 'finance/expense_edit.html', context)
 
 def expense_delete(request, pk):

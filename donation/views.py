@@ -15,31 +15,29 @@ def donation_detail(request, pk):
     return render(request, 'donation/donation_detail.html', context)
 
 def donation_new(request):
-    if request.method == "POST":
-        form = DonationForm(request.POST)
-        if form.is_valid():
-            donation = form.save(commit=False)
-            donation.created_at = timezone.now()
-            donation.status = "A"
-            donation.save()
-            return redirect('donation_detail', pk=donation.pk)
-    else:
-        form = DonationForm()
-        context = {'pagina': 'Doações', 'page_title': 'Despesas', 'form': form}
+    form = DonationForm(request.POST or None)
+    if form.is_valid():
+        context = {'pagina': 'Doações', 'page_title': 'Despesas', 'form': form}  
+        donation = form.save(commit=False)
+        donation.created_at = timezone.now()
+        donation.status = "A"
+        donation.save()
+        return redirect('donation_detail', pk=donation.pk)
+
+    context = {'pagina': 'Doações', 'page_title': 'Despesas', 'form': form}  
     return render(request, 'donation/donation_edit.html', context)
+ 
 
 def donation_edit(request, pk):
     donation = Donation.objects.get(pk=pk)
-    if request.method == "POST":
-        form = DonationForm(request.POST, instance=donation)
-        if form.is_valid():
-            donation = form.save(commit=False)
-            donation.updated_at = timezone.now()
-            donation.save()
-            return redirect('donation_detail', pk=donation.pk)
-    else:
-        form = DonationForm(instance=donation)
-        context = {'pagina': 'Doações', 'page_title': 'Doações', 'form': form}
+    form = DonationForm(request.POST or None, instance=donation)
+    if form.is_valid():
+        donation = form.save(commit=False)
+        donation.updated_at = timezone.now()
+        donation.save()
+        return redirect('donation_detail', pk=donation.pk)
+
+    context = {'pagina': 'Doações', 'page_title': 'Doações', 'form': form}
     return render(request, 'donation/donation_edit.html', context)
 
 def donation_delete(request, pk):
