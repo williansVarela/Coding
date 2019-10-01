@@ -13,6 +13,9 @@ from django.views.generic import UpdateView
 from core.models import User
 from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
+from donation.models import Donation
+from finance.models import Expense
+from django.db.models import Sum
 
 
 def admin_check(user):
@@ -58,6 +61,12 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context['pagina'] = 'Início'
         context['page_title'] = 'Home | Sistema de Gestão'
         context['home_active'] = 'active'
+        context['donations'] = Donation.objects.all()
+        context['total_donations'] = Donation.objects.aggregate(Sum('amount'))
+        context['finances'] = Expense.objects.all()
+        context['total_finance'] = Expense.objects.aggregate(Sum('amount'))
+
+
 
         return context
 
