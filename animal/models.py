@@ -68,8 +68,8 @@ class ClinicalLog(models.Model):
 
 class Shelter(models.Model):
     SHELTER_CHOICES = [
-        ('Temporário', 'Temporário'),
-        ('Adoção', 'Adoção')
+        ('temp', 'Temporário'),
+        ('adoção', 'Adoção')
     ]
 
     person = models.ForeignKey('contacts.Contact', on_delete=models.PROTECT, verbose_name="Pessoa")

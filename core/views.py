@@ -15,7 +15,8 @@ from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from donation.models import Donation
 from finance.models import Expense
-from django.db.models import Sum
+from animal.models import Shelter
+from django.db.models import Sum, Count
 
 
 def admin_check(user):
@@ -65,6 +66,11 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context['total_donations'] = Donation.objects.aggregate(Sum('amount'))
         context['finances'] = Expense.objects.all()
         context['total_finance'] = Expense.objects.aggregate(Sum('amount'))
+        queryset = Shelter.objects.filter(category__icontains='adoção')
+        context['total_adoption'] = queryset.aggregate(Count('animal'))
+        queryset = Shelter.objects.filter(category__icontains='temp')
+        context['total_animals'] = queryset.aggregate(Count('animal'))
+
 
 
 
