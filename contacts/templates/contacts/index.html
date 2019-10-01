@@ -18,6 +18,7 @@
             <th>Nome</th>
             <th>E-mail</th>
             <th class="text-center">Telefone</th>
+            <th class="text-center">Registro</th>
             <th class="text-center">Tipo</th>
             <th class="text-center" style="width: 18%">Ações</th>
         </tr>
@@ -26,9 +27,10 @@
 
         {% for object in contacts %}
             <tr>
-                <td>{{object.person.name}}</td>
-                <td>{{object.person.email}}</td>
+                <td class="align-middle">{{object.person.name}}</td>
+                <td class="align-middle">{{object.person.email}}</td>
                 <td class="text-center align-middle">{{object.phone}}</td>
+                <td class="text-center align-middle">{{object.created_at|date:'d/m/Y'}}</td>
                 <td class="text-center align-middle">
                     {% if object.type == 'volunteer' %}
                         Voluntário
@@ -117,4 +119,8 @@
         {% endfor %}
     </tbody>
 
+{% endblock %}
+
+{% block table_addional_configuration %}
+    "order": [[ 3, 'desc' ]]
 {% endblock %}
