@@ -1,0 +1,15 @@
+{% extends 'base_list.html' %}
+
+{% block table_content %}
+    <div class="container">
+        <form method="POST" action="" enctype="multipart/form-data" novalidate id="donation-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" id="btn-send" class="btn btn-primary">Criar</button>
+        </form>
+    </div>
+{% include 'popup_form.html' %}
+
+{% endblock %}
+
+

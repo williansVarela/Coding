@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'volunteers',
     'dashboard',
     'finance',
+    'donation',
 ]
 
 MIDDLEWARE = [
