@@ -20,7 +20,7 @@
         <td class="text-center">{{ animal.breed }}</td>
         <td class="text-center">
             {% if animal.shelter_category == None %}
-            <a href="{% url 'new_shelter' animal.id %}" id="add-shelter" onclick="return showAddPopup(this, 500, 550);">
+            <a href="{% url 'animals:create_shelter' animal.id %}" id="add-shelter" onclick="return showAddPopup(this, 500, 550);">
                 <button type="button" class="btn btn-default" role="button" title="Novo Acolhimento">
                     <span style="font-size: 1.5em; color: #31af91">
                         <i class="fas fa-plus"></i>
@@ -42,7 +42,7 @@
                 </span>
             </button>
 
-            <a href="{% url 'update_animal' pk=animal.id %}" class="btn btn-success" title="Editar">
+            <a href="{% url 'animals:edit_animal' pk=animal.id %}" class="btn btn-success" title="Editar">
                 <span style="font-size: 1em; color: #f0f0f0">
                     <i class="fas fa-pencil-alt"></i>
                 </span>
@@ -70,7 +70,7 @@
                 <p>Esta operação não poderá ser desfeita no futuro.</p>
             </div>
             <div class="modal-footer">
-                <a href="{% url 'del_animal' pk=animal.id %}">
+                <a href="{% url 'animals:delete_animal' pk=animal.id %}">
                 <button type="button" class="btn btn-danger">Remover</button>
                 </a>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -115,7 +115,7 @@
                     <div class="line" style="margin: 15px 0"></div>
 
                     <h5>Acolhimentos
-                        <a href="{% url 'new_shelter' animal.id %}" id="add-shelter" onclick="return showAddPopup(this, 500, 550);">
+                        <a href="{% url 'animals:create_shelter' animal.id %}" id="add-shelter" onclick="return showAddPopup(this, 500, 550);">
                             <button type="button" class="btn btn-default" role="button" title="Novo Acolhimento">
                                 <span style="font-size: 1.5em; color: #31af91">
                                     <i class="fas fa-plus"></i>
@@ -147,12 +147,12 @@
                             <td class="text-center">{{ shelter.date_entry|date:'d/m/Y' }}</td>
                             <td class="text-center">{% if shelter.date_exit == None %}-{% else %}{{ shelter.date_exit|date:'d/m/Y' }}{% endif %}</td>
                             <td class="text-center">
-                                <a href="{% url 'update_shelter' pk=shelter.id %}" id="update-shelter" class="btn btn-success" onclick="return showAddPopup(this, 500, 550);">
+                                <a href="{% url 'animals:edit_shelter' pk=shelter.id %}" id="update-shelter" class="btn btn-success" onclick="return showAddPopup(this, 500, 550);">
                                     <span style="font-size: 1em; color: #f0f0f0">
                                         <i class="fas fa-pencil-alt"></i>
                                     </span>
                                 </a>
-                                <a href="{% url 'del_shelter' pk=shelter.id %}" class="btn btn-danger" title="Remover">
+                                <a href="{% url 'animals:delete_shelter' pk=shelter.id %}" class="btn btn-danger" title="Remover">
                                     <span style="font-size: 1em; color: #f0f0f0">
                                         <i class="fas fa-trash-alt"></i>
                                     </span>
@@ -170,7 +170,7 @@
                     <div class="line" style="margin: 15px 0"></div>
 
                     <h5 style="padding-bottom:0.1em;">Histórico Clínico
-                        <a href="{% url 'new_clinical_log_popup' animal.id %}" id="add-clinical-log" onclick="return showAddPopup(this, 500, 300);">
+                        <a href="{% url 'animals:create_clinical_log' animal.id %}" id="add-clinical-log" onclick="return showAddPopup(this, 500, 300);">
                             <button type="button" class="btn btn-default" role="button" title="Nova Informação Clínica">
                                 <span style="font-size: 1.5em; color: #31af91">
                                     <i class="fas fa-plus"></i>
@@ -192,12 +192,12 @@
                                 <td>{{ clinical_log.clinical_condition }}</td>
                                 <td class="text-center">{{ clinical_log.date|date:'d/m/Y' }}</td>
                                 <td class="text-center">
-                                    <a href="{% url 'update_clinical_log' pk=clinical_log.id %}" id="update-clinical-log" class="btn btn-success" onclick="return showAddPopup(this, 500, 550);">
+                                    <a href="{% url 'animals:edit_clinical_log' pk=clinical_log.id %}" id="update-clinical-log" class="btn btn-success" onclick="return showAddPopup(this, 500, 550);">
                                         <span style="font-size: 1em; color: #f0f0f0">
                                             <i class="fas fa-pencil-alt"></i>
                                         </span>
                                     </a>
-                                    <a href="{% url 'del_clinical_log' pk=clinical_log.id %}" class="btn btn-danger" title="Remover">
+                                    <a href="{% url 'animals:delete_clinical_log' pk=clinical_log.id %}" class="btn btn-danger" title="Remover">
                                         <span style="font-size: 1em; color: #f0f0f0">
                                             <i class="fas fa-trash-alt"></i>
                                         </span>

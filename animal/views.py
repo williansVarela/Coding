@@ -36,7 +36,7 @@ def new_animal(request):
             shelter_obj = shelter_form.save(False)
             shelter_obj.animal = animal_obj
             shelter_obj.save()
-        return redirect('animal')
+        return redirect('animals:home')
 
     context = {'pagina': 'Novo Animal', 'page_title': 'Novo Animal'}
     context['animal_form'] = animal_form
@@ -51,7 +51,7 @@ def update_animal(request, pk):
 
     if form.is_valid():
         form.save()
-        return redirect('animal')
+        return redirect('animals:home')
 
     context = {'pagina': 'Editar Animal', 'page_title': 'Editar Animal'}
     context['action'] = 'update'
@@ -63,7 +63,7 @@ def update_animal(request, pk):
 def del_animal(request, pk):
     animal = Animal.objects.get(pk=pk)
     animal.delete()
-    return redirect('animal')
+    return redirect('animals:home')
 
 
 def new_species_popup(request):
@@ -121,7 +121,7 @@ def update_clinical_log(request, pk):
 def del_clinical_log(request, pk):
     clinical_log_obj = ClinicalLog.objects.get(pk=pk)
     clinical_log_obj.delete()
-    return redirect('animal')
+    return redirect('animals:home')
 
 
 
@@ -156,4 +156,4 @@ def update_shelter(request, pk):
 def del_shelter(request, pk):
     shelter = Shelter.objects.get(pk=pk)
     shelter.delete()
-    return redirect('animal')
+    return redirect('animals:home')

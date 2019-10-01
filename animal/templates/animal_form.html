@@ -25,7 +25,7 @@
 
             <p>
                 <label for="id_species">Espécie:</label>
-                <a href="{% url 'new_species_popup' %}" id="add-species" onclick="return showAddPopup(this, 500, 210);">
+                <a href="{% url 'animals:create_species' %}" id="add-species" onclick="return showAddPopup(this, 500, 210);">
                      <button type="button" class="btn btn-default" role="button" title="Nova Espécie">
                          <span style="font-size: 1.5em; color: #31af91">
                             <i class="fas fa-plus"></i>
@@ -38,7 +38,7 @@
 
             <p>
                 <label for="id_breed">Raça:</label>
-                <a href="{% url 'new_breed_popup' %}" id="add-breed" onclick="return showAddPopup(this, 500, 300);">
+                <a href="{% url 'animals:create_breed' %}" id="add-breed" onclick="return showAddPopup(this, 500, 300);">
                     <button type="button" class="btn btn-default" role="button" title="Nova Raça">
                         <span style="font-size: 1.5em; color: #31af91">
                             <i class="fas fa-plus"></i>
