@@ -49,6 +49,9 @@ class ClinicalLog(models.Model):
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name="Animal")
     date = models.DateField(verbose_name="Data")
 
+    def __str__(self):
+        return self.clinical_condition
+
 
 class Shelter(models.Model):
     SHELTER_CHOICES = [

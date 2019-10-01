@@ -58,28 +58,6 @@ class BreedForm(forms.ModelForm):
 class ShelterForm(forms.ModelForm):
     class Meta:
         model = Shelter
-        fields = ['animal', 'category', 'person', 'date_entry', 'date_exit']
-        labels = {
-            'animal': _('Animal'),
-            'category': _('Tipo de Acolhimento'),
-            'person': _('Acolhedor'),
-            'date_entry': _('Data de Entrada'),
-            'date_exit': _('Data de Saída'),
-        }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.fields['animal'].widget.attrs = {'class': 'form-control'}
-        self.fields['category'].widget.attrs = {'class': 'form-control'}
-        self.fields['person'].widget.attrs = {'class': 'form-control'}
-        self.fields['date_entry'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
-        self.fields['date_exit'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
-
-
-class ShelterAnimalForm(forms.ModelForm):
-    class Meta:
-        model = Shelter
         fields = ['category', 'person', 'date_entry', 'date_exit']
         labels = {
             'category': _('Tipo de Acolhimento'),
@@ -103,10 +81,10 @@ class ClinicalLogForm(forms.ModelForm):
         fields = ['clinical_condition', 'date']
         labels = {
             'clinical_condition': _('Informação Clínica'),
-            'date': _('Data')
+            'date': _('Data'),
         }
 
-    def __init(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields['clinical_condition'].widget.attrs = {'class': 'form-control', 'placeholder': 'Digite a informação clínica'}
