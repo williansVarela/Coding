@@ -3,79 +3,99 @@
 {% block content %}
 
     <div class="col-md-6">
-        <h4>{{ pagina }}</h4>
+        <h2>{{ pagina }}</h2>
         <form method="POST" role="form">
 
             {% csrf_token %}
 
-            <p>
-                <label for="id_name">Nome:</label>
-                {{ animal_form.name }}
-            </p>
-
-            <p>
-                <label for="id_sex">Sexo:</label>
-                {{ animal_form.sex }}
-            </p>
-
-            <p>
-                <label for="id_day_of_birth">Data de Nascimento:</label>
-                {{ animal_form.day_of_birth }}
-            </p>
-
-            <p>
-                <label for="id_species">Espécie:</label>
-                <a href="{% url 'animals:create_species' %}" id="add-species" onclick="return showAddPopup(this, 500, 210);">
-                     <button type="button" class="btn btn-default" role="button" title="Nova Espécie">
-                         <span style="font-size: 1.5em; color: #31af91">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                    </button>
-                 </a>
-                {{ animal_form.species }}
-
-            </p>
-
-            <p>
-                <label for="id_breed">Raça:</label>
-                <a href="{% url 'animals:create_breed' %}" id="add-breed" onclick="return showAddPopup(this, 500, 300);">
-                    <button type="button" class="btn btn-default" role="button" title="Nova Raça">
-                        <span style="font-size: 1.5em; color: #31af91">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                    </button>
-                </a>
-                {{ animal_form.breed }}
-            </p>
-
-            <p>
-                <label for="id_observation">Observação:</label>
-                {{ animal_form.observation }}
-            </p>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_name">Nome:</label>
+                        {{ animal_form.name }}
+                    </p>
+                </div>
+                <div class="form-group col-md-3">
+                    <p>
+                        <label for="id_sex">Sexo:</label>
+                        {{ animal_form.sex }}
+                    </p>
+                </div>
+                <div class="form-group col-md-3">
+                    <p>
+                        <label for="id_day_of_birth">Data de Nascimento:</label>
+                        {{ animal_form.day_of_birth }}
+                    </p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_species">Espécie:</label>
+                        <a href="{% url 'animals:create_species' %}" id="add-species" onclick="return showAddPopup(this, 500, 210);">
+                             <button type="button" class="btn btn-default" role="button" title="Nova Espécie" style="font-size: 17.6px; padding: 2px 12px 6px;">
+                                 <span style="color: #31af91">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </button>
+                         </a>
+                        {{ animal_form.species }}
+                    </p>
+                </div>
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_breed">Raça:</label>
+                        <a href="{% url 'animals:create_breed' %}" id="add-breed" onclick="return showAddPopup(this, 500, 300);">
+                            <button type="button" class="btn btn-default" role="button" title="Nova Raça" style="font-size: 17.6px; padding: 2px 12px 6px;">
+                                <span style="color: #31af91">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </button>
+                        </a>
+                        {{ animal_form.breed }}
+                    </p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <p>
+                        <label for="id_observation">Observação:</label>
+                        {{ animal_form.observation }}
+                    </p>
+                </div>
+            </div>
 
 
             {% if is_creation == True %}
-                <p><h4>Informações de Acolhimento</h4></p>
-
-                <p>
-                    <label for="id_category">Tipo de Acolhimento:</label>
-                    {{ shelter_form.category }}
-                </p>
-
-                <p>
-                    <label for="id_person">Acolhedor:</label>
-                    {{ shelter_form.person }}
-                </p>
-
-                <p>
-                    <label for="id_date_entry">Data de Entrada:</label>
-                    {{ shelter_form.date_entry }}
-                </p>
-
-                <p>
-                    <label for="id_date_exit">Data de Saída:</label>
-                    {{ shelter_form.date_exit }}
-                </p>
+            <h3>Informações de Acolhimento</h3>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_person">Acolhedor:</label>
+                        {{ shelter_form.person }}
+                    </p>
+                </div>
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_category">Tipo de Acolhimento:</label>
+                        {{ shelter_form.category }}
+                    </p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_date_entry">Data de Entrada:</label>
+                        {{ shelter_form.date_entry }}
+                    </p>
+                </div>
+                <div class="form-group col-md-6">
+                    <p>
+                        <label for="id_date_exit">Data de Saída:</label>
+                        {{ shelter_form.date_exit }}
+                    </p>
+                </div>
+            </div>
             {% endif %}
 
             <button type="submit" id="btn-send" class="btn btn-primary">Salvar</button>
