@@ -29,6 +29,7 @@ urlpatterns = [
     path('animals/', include('animal.urls')),
     path('contacts/', include('contacts.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('expenses/', include('finance.urls')),
 
     url(r'^$', HomeView.as_view(), name='home'),
     url('login/', LoginView.as_view(), name='login'),

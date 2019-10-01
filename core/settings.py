@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'contacts.contacts_register',
     'volunteers',
     'dashboard',
+    'finance',
 ]
 
 MIDDLEWARE = [
