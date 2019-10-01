@@ -1,31 +1,27 @@
 {% extends 'base_list.html' %}
 
 {% block table_content %}
+    <a href="{% url 'expense_new' %}">
+        <button type="button" class="btn btn-info">Nova Despesa</button>
+    </a>
     <thead>
-        <th>Tipo de Despesa</th>
+        <th class="text-center">Tipo de Despesa</th>
         <th class="text-center">Descrição</th>
         <th class="text-center">Valor</th>
-        <th class="text-center">Status</th>
-        <th class="text-center">Data de Criação</th>
         <th class="text-center">Ultima Atualização</th>
+        <th class="text-center">Ações</th>
     </thead>
     <tbody>
-     
         {% for e in expenses %}
-
             <tr>
-                <td>{{ e.expense_type }}</td>
-                <td class="text-center">{{ e.description }}</td>
+                <td class="text-center">{{ e.expense_type }}</td>
+                <td class="text-center"><a href="{% url 'expense_detail' pk=e.pk %}">{{ e.description }}</a></td>
                 <td class="text-center">{{ e.amount }}</td>
-                <td class="text-center">{{ e.status }}</td>
-                <td class="text-center">{{ e.created_at }}</td>
                 <td class="text-center">{{ e.updated_at }}</td>
+                <td class="text-center"><a href="{% url 'expense_delete' pk=e.pk %}">Remover Registro</a></td>
             </tr>
-
         {% endfor %}
-
     </tbody>
-
 {% include 'popup_form.html' %}
 
 {% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base_list.html' %}
+
+{% block table_content %}
+    <a href="{% url 'donation_new' %}">
+        <button type="button" class="btn btn-info">Nova Doação</button>
+    </a>
+    <thead>
+        <th class="text-center">Tipo de Doação</th>
+        <th class="text-center">Descrição</th>
+        <th class="text-center">Valor</th>
+        <th class="text-center">Ultima Atualização</th>
+        <th class="text-center">Ações</th>
+    </thead>
+    <tbody>
+        {% for d in donations %}
+            <tr>
+                <td class="text-center">{{ d.donation_type }}</td>
+                <td class="text-center"><a href="{% url 'donation_detail' pk=d.pk %}">{{ d.description }}</a></td>
+                <td class="text-center">{{ d.amount }}</td>
+                <td class="text-center">{{ d.updated_at }}</td>
+                <td class="text-center"><a href="{% url 'donation_delete' pk=d.pk %}">Remover Registro</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+{% include 'popup_form.html' %}
+
+{% endblock %}

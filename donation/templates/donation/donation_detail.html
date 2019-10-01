@@ -1,0 +1,26 @@
+{% extends 'base_list.html' %}
+
+{% block table_content %}
+    <thead>
+        <a class="btn btn-default" href="{% url 'donation_edit' pk=donation.pk %}">Editar</a>
+        <th>Tipo de Doação</th>
+        <th class="text-center">Descrição</th>
+        <th class="text-center">Valor</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Data de Criação</th>
+        <th class="text-center">Ultima Atualização</th>
+    </thead>
+    <tbody>
+            <tr>
+                <td class="text-center">{{ donation.donation_type }}</td>
+                <td class="text-center">{{ donation.description }}</td>
+                <td class="text-center">{{ donation.amount }}</td>
+                <td class="text-center">{{ donation.status }}</td>
+                <td class="text-center">{{ donation.created_at }}</td>
+                <td class="text-center">{{ donation.updated_at }}</td>
+            </tr>
+    </tbody>
+
+{% include 'popup_form.html' %}
+
+{% endblock %}
