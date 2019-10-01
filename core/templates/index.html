@@ -1,20 +1,239 @@
 {% extends 'base.html' %}
-            
+{% load static %}
+{% now 'Y-m' as current_month %}
+{% now 'Y' as current_year %}
+{% now 'Y-m' as current_month %}
+
+{% block css_base %}
+    <link href="{% static 'plugins/webdatarocks/webdatarocks.min.css' %}" rel="stylesheet">
+    <script src="{% static 'plugins/webdatarocks/webdatarocks.toolbar.min.js' %}"></script>
+    <script src="{% static 'plugins/webdatarocks/webdatarocks.js' %}"></script>
+    <style>
+        #container-graficos {
+            -webkit-flex: 1;  /* Safari 6.1+ */
+            -ms-flex: 1;  /* IE 10 */  
+            flex: 1;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 2em;
+            margin-left: 0px;
+            margin-bottom: 3em;
+            display: flex;
+            flex-flow: row wrap;
+            display: -webkit-flex; /* Safari */
+        }
+        card-stats 
+        .card {
+                border-radius: 12px;
+                box-shadow: 0 6px 10px -4px rgba(0,0,0,.15);
+                background-color: #fff;
+                color: #252422;
+                margin-bottom: 20px;
+                position: relative;
+                border: 0;
+                -webkit-transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease;
+                -webkit-transition: box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
+                transition: box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
+                transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease;
+                transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                min-width: 0;
+                word-wrap: break-word;
+                background-color: #fff;
+                background-clip: initial;
+                border: 1px solid rgba(0,0,0,.125);
+                border-radius: .25rem;
+        }
+        .card-stats .card-body {
+            padding: 15px 15px 0;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 
     <h2>Bem-vindo, {{ user.name }}.</h2>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="row">
 
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-stats card"><div class="card-body">
+                <div class="row">
+                    <div class="col-5 col-md-4">
+                        <div class="icon-big text-center icon-warning">
+                            <i class="nc-icon nc-globe text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="col-7 col-md-8">
+                        <div class="numbers">
+                            <p class="card-category">Capacity</p>
+                            <p class="card-title">150GB</p>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <hr>
+                    <div class="stats">
+                        <i class="fas fa-sync-alt"></i> Update Now
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+       
     <div class="line"></div>
+
+    <div id="container-graficos">
+        <div id="chart_animals" class="grafico" style="width: 35%; height: 20em"></div>
+        <div id="chart_donations" class="grafico" style="width: 62%; height: 20em;"></div>
+    </div>
+
+    <div id="container-graficos">
+        <div id="chart_revenue_expenses" class="grafico" style="width: 49%; height: 400px;"></div>
+        <div id="chart_" class="grafico" style="width: 49%; height: 400px;"></div>
+    </div>
 
     <h2>Lorem Ipsum Dolor</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-    <div class="line"></div>
-
-    <h2>Lorem Ipsum Dolor</h2>
+    
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+
+        function getFormattedDate(date) {
+            var day = date.getDate().toString().padStart(2, '0');
+            var month = (date.getMonth() + 1).toString().padStart(2, '0');
+            var year = date.getFullYear().toString();
+            return year + "." + month + "." + day;
+        };
+
+        function currencyFormat(num) {
+            return 'R$' + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        };
+
+        const arrSum = arr => arr.reduce((a,b) => a + b, 0);
+        const arrAvg = arr => arr.reduce((a,b) => a + b, 0) / arr.length;
+        const arrMin = arr => Math.min(...arr);
+        const arrMax = arr => Math.max(...arr);
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+        };
+        
+        var today = new Date();
+    </script>
+
+     <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages':['corechart', 'line']});
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            
+            function formatDate(date) {
+                var d = new Date(date),
+                    month = '' + (d.getMonth() + 1),
+                    day = '' + d.getDate(),
+                    year = d.getFullYear();
+                if (month.length < 2) month = '0' + month;
+                if (day.length < 2) day = '0' + day;
+                return [year, month].join('-');
+            }
+            var current_month = formatDate(new Date())
+
+
+             // Gráfico de Animais sobre os cuidados da Ong
+            var animal_data = new google.visualization.DataTable();
+            animal_data.addColumn('string', 'AnimalType');
+            animal_data.addColumn('number', 'Qtd');
+            
+            animal_data.addRow(['Gatos', 37]);
+            animal_data.addRow(['Cães', 61]);
+            animal_data.addRow(['Outros', 6]);
+            var animalsChartOptions = {
+                title:'Animais para adoção',
+                titleTextStyle: {
+                    color: '#E68C00',
+                    fontSize: 20,
+                },
+                backgroundColor: {
+                    stroke: '#d3d3d3',
+                    strokeWidth: 3,
+                },
+                pieHole: 0.4,
+                colors: ['#4019FF', '#FF6600', 'red'],
+                pieSliceText: 'percentage',
+            };
+
+
+            // Gráfico de doações
+            var donations_data = new google.visualization.DataTable();
+            donations_data.addColumn('date', 'Data');
+            donations_data.addColumn('number', 'Doações');
+           
+            donations_data.addRow([new Date(2019, 05, 27), 230]);
+            donations_data.addRow([new Date(2019, 05, 12), 180]);
+            donations_data.addRow([new Date(2019, 05, 02), 50]);
+            donations_data.addRow([new Date(2019, 05, 23), 50]);
+            donations_data.addRow([new Date(2019, 05, 20), 78]);
+            donations_data.addRow([new Date(2019, 6, 05), 80]);
+            donations_data.addRow([new Date(2019, 6, 11), 35]);
+            donations_data.addRow([new Date(2019, 6, 14), 80]);
+            donations_data.addRow([new Date(2019, 7, 2), 90]);
+            donations_data.addRow([new Date(2019, 7, 20), 120]);
+            donations_data.addRow([new Date(2019, 8, 17), 130]);
+            donations_data.addRow([new Date(2019, 8, 9), 100]);
+            donations_data.addRow([new Date(2019, 9, 15), 150]);
+            donations_data.addRow([new Date(2019, 9, 22), 210]);
+            donations_data.addRow([new Date(2019, 9, 26), 300]);
+            donations_data.addRow([new Date(2019, 9, 27), 280]);
+            donations_data.addRow([new Date(2019, 9, 29), 240]);
+            donations_data.addRow([new Date(2019, 9, 30), 150]);
+
+            donations_data.sort([{column: 0}]);
+
+            var donationChartOpetions = {
+                title: 'Doações',
+                legend: { position: 'bottom' },
+                titleTextStyle: {
+                    color: '#E68C00',
+                    fontSize: 20,
+                },
+                backgroundColor: {
+                    stroke: '#d3d3d3',
+                    strokeWidth: 3,
+                },
+                vAxis: {
+                    title: 'Doações',
+                    //gridlines: {count: 5},
+                    //ticks: [0,2,4,6,8,10,12,14],
+                },
+                series: {
+                    0: {color: '#800080', axis: 'Doações'},
+                },
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            
+            // Animals Chart
+            var chartAnimals = new google.visualization.PieChart(document.getElementById('chart_animals'));
+            chartAnimals.draw(animal_data, animalsChartOptions);
+            
+            // Donations Chart
+            var chartDonations = new google.visualization.LineChart(document.getElementById('chart_donations'));
+            chartDonations.draw(donations_data, donationChartOpetions);
+        }
+    </script>
 
 {% endblock %}

@@ -10,40 +10,6 @@
     <script src="{% static 'plugins/webdatarocks/webdatarocks.toolbar.min.js' %}"></script>
     <script src="{% static 'plugins/webdatarocks/webdatarocks.js' %}"></script>
     <style>
-        .inline p {
-            display: inline;
-        }
-        #board {
-            background-color: white;
-            border-radius:7px;
-            border: 1px solid #d3d3d3;
-            position: relative;
-        }
-        #board h4{
-            color:#800080;
-            font-weight: bold;
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
-        #board i{
-            font-size: 1rem;
-        }
-        #board p{
-            margin: 0px;
-        }
-        #board, #container-graficos{
-            display: -webkit-flex; /* Safari */
-            display: flex;
-            flex-flow: row wrap;
-        }
-        #board div {
-            -webkit-flex: 1;  /* Safari 6.1+ */
-            -ms-flex: 1;  /* IE 10 */  
-            flex: 1;
-            text-align-last: center;
-            border-right: 1px solid #d3d3d3;
-            align-content: center;
-        }
         #container-graficos {
             -webkit-flex: 1;  /* Safari 6.1+ */
             -ms-flex: 1;  /* IE 10 */  
@@ -53,25 +19,9 @@
             margin-top: 2em;
             margin-left: 0px;
             margin-bottom: 3em;
-        }
-        #table-conteiner button {
-            width:100%;
-            color: #FFFFFF;
-            padding-top: 10.25px; 
-            padding-bottom: 10.25px; 
-            font-size: 20px; 
-            background-color: #A43287; 
-            text-align: center; 
-            text-transform: uppercase; 
-            border: 0px solid #FFFFFF; 
-            border-top-left-radius: 4px; 
-            border-top-right-radius: 4px; 
-            border-bottom-right-radius: 4px; 
-            border-bottom-left-radius: 4px; 
-            box-shadow: 0 2px 4px 0 rgba(0,0,0,.25), inset 0 -1px 0 0 rgba(0,0,0,.25);
-        }
-        #table-conteiner div {
-            padding-bottom: 3rem;
+            display: flex;
+            flex-flow: row wrap;
+            display: -webkit-flex; /* Safari */
         }
     </style>
 {% endblock %}
