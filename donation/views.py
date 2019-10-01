@@ -5,7 +5,6 @@ from .forms import DonationForm
 
 def donation_list(request):
     donations = Donation.objects.all()
-    print(donations)
     context = {'pagina': 'Doações', 'page_title': 'Doações', 'donations': donations}
     return render(request, 'donation/donation_list.html', context)
 
