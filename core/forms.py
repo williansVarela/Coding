@@ -98,9 +98,7 @@ class EditProfileForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(
         label=_("Password"),
         help_text=_(
-            "Não é possível ver ou editar a senha deste usuário nesta página. "
-            "Para alterar a senha "
-            "<strong><a href=\"{}\">clique aqui</a></strong>."
+            "Não é possível ver ou editar a senha deste usuário nesta página."
         ),
     )
 

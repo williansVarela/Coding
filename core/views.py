@@ -193,3 +193,37 @@ class UpdateProfile(LoginRequiredMixin, UpdateView):
             messages.error(self.request, 'Por favor corrija o erro acima.', extra_tags='alert alert-danger')
 
         return super(UpdateProfile, self).form_valid(form)
+
+
+class EditProfile(LoginRequiredMixin, UpdateView):
+    template_name = 'update_profile.html'
+    form_class = EditProfileForm
+    model = User
+    success_url = reverse_lazy('list_users')
+
+    def get_context_data(self, **kwargs):
+        context = super(EditProfile, self).get_context_data(**kwargs)
+        context['pagina'] = 'Perfil de usuário'
+        context['page_title'] = 'Admin | Editar Usuário'
+
+        return context
+
+    def get_object(self, queryset=None):
+        """This loads the profile of the user"""
+
+        return User.objects.get(id=self.kwargs['pk'])
+
+    def form_valid(self, form):
+        """Here is where you set the user for the new profile"""
+
+        instance = form.instance  # This is the new object being saved
+        instance.user = self.request.user
+        instance.save()
+
+        if form.is_valid():
+            messages.success(self.request, 'Os dados do usuário foram atualizado com sucesso!', extra_tags='alert alert-success')
+        else:
+            messages.error(self.request, 'Por favor corrija o erro acima.', extra_tags='alert alert-danger')
+
+        return super(EditProfile, self).form_valid(form)
+
