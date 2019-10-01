@@ -6,6 +6,7 @@
 
 {% block css_base %}
     <link href="{% static 'plugins/webdatarocks/webdatarocks.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/cards.css' %}" rel="stylesheet">
     <script src="{% static 'plugins/webdatarocks/webdatarocks.toolbar.min.js' %}"></script>
     <script src="{% static 'plugins/webdatarocks/webdatarocks.js' %}"></script>
     <style>
@@ -22,70 +23,124 @@
             flex-flow: row wrap;
             display: -webkit-flex; /* Safari */
         }
-        card-stats 
-        .card {
-                border-radius: 12px;
-                box-shadow: 0 6px 10px -4px rgba(0,0,0,.15);
-                background-color: #fff;
-                color: #252422;
-                margin-bottom: 20px;
-                position: relative;
-                border: 0;
-                -webkit-transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease;
-                -webkit-transition: box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
-                transition: box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
-                transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease;
-                transition: transform .3s cubic-bezier(.34,2,.6,1),box-shadow .2s ease,-webkit-transform .3s cubic-bezier(.34,2,.6,1);
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                min-width: 0;
-                word-wrap: break-word;
-                background-color: #fff;
-                background-clip: initial;
-                border: 1px solid rgba(0,0,0,.125);
-                border-radius: .25rem;
-        }
-        .card-stats .card-body {
-            padding: 15px 15px 0;
-        }
+    
+       
     </style>
 {% endblock %}
 
 {% block content %}
 
-    <h2>Bem-vindo, {{ user.name }}.</h2>
-
     <div class="row">
 
         <div class="col-sm-6 col-md-6 col-lg-3">
-            <div class="card-stats card"><div class="card-body">
-                <div class="row">
-                    <div class="col-5 col-md-4">
-                        <div class="icon-big text-center icon-warning">
-                            <i class="nc-icon nc-globe text-warning"></i>
+            <div class="card-stats card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="text-center">
+                                <img src="{% static 'img/pet-house.svg' %}" width="60rem">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-7 col-md-8">
-                        <div class="numbers">
-                            <p class="card-category">Capacity</p>
-                            <p class="card-title">150GB</p>
-                            <p></p>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Total de animais</p><p class="card-title">128</p><p></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <hr>
+                <!--
+                <div class="card-footer">
                     <div class="stats">
-                        <i class="fas fa-sync-alt"></i> Update Now
+                        <i class="fas fa-sync-alt"></i> TEXTO FOOTER
                     </div>
                 </div>
+                -->
             </div>
         </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-stats card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="text-center">
+                                <img src="{% static 'img/pet-care.svg' %}" width="60rem">
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Adoções</p><p class="card-title">34</p><p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="fas fa-sync-alt"></i> TEXTO FOOTER
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-stats card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="text-center">
+                                <img src="{% static 'img/heart.svg' %}" width="60rem">
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Doações</p><p class="card-title">R$1200</p><p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="fas fa-sync-alt"></i> TEXTO FOOTER
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-stats card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-5 col-md-4">
+                            <div class="text-center">
+                                <img src="{% static 'img/bank-money.svg' %}" width="60rem">
+                            </div>
+                        </div>
+                        <div class="col-7 col-md-8">
+                            <div class="numbers">
+                                <p class="card-category">Despesas</p><p class="card-title">R$500</p><p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="fas fa-sync-alt"></i> TEXTO FOOTER
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+        
     </div>
-       
-    <div class="line"></div>
+    
+    <div class="splitter"></div>
+
+    <h3>Bem-vindo, {{ user.name }}.</h3>
 
     <div id="container-graficos">
         <div id="chart_animals" class="grafico" style="width: 35%; height: 20em"></div>
