@@ -5,25 +5,30 @@ from animal.views import (animal,
                           del_animal,
                           new_species_popup,
                           new_breed_popup,
-                          new_clinical_log_popup,
+                          new_clinical_log,
+                          update_clinical_log,
                           del_clinical_log,
-                          shelter,
                           new_shelter,
                           update_shelter,
-                          del_shelter,)
+                          del_shelter, )
+
+
+app_name = 'animals'
 
 urlpatterns = [
-    path('list_animals/', animal, name='animal'),
-    path('new_animal/', new_animal, name='new_animal'),
-    path('update_animal/<int:pk>/', update_animal, name='update_animal'),
-    path('del_animal/<int:pk>/', del_animal, name='del_animal'),
-    path('new_species/', new_species_popup, name='new_species_popup'),
-    path('new_breed/', new_breed_popup, name='new_breed_popup'),
-    path('new_clinical_log/<int:pk>/', new_clinical_log_popup, name='new_clinical_log_popup'),
-    path('del_clinical_log/<int:pk>/', del_clinical_log, name='del_clinical_log'),
+    path('', animal, name='home'),
+    path('add/animal', new_animal, name='create_animal'),
+    path('edit/animal/<int:pk>', update_animal, name='edit_animal'),
+    path('delete/animal/<int:pk>', del_animal, name='delete_animal'),
 
-    path('list_shelters/', shelter, name='shelter'),
-    path('new_shelter/', new_shelter, name='new_shelter'),
-    path('update_shelter/<int:pk>/', update_shelter, name='update_shelter'),
-    path('del_shelter/<int:pk>/', del_shelter, name='del_shelter'),
+    path('add/species', new_species_popup, name='create_species'),
+    path('add/breed', new_breed_popup, name='create_breed'),
+
+    path('add/clinical_log/<int:pk>', new_clinical_log, name='create_clinical_log'),
+    path('edit/clinical_log/<int:pk>', update_clinical_log, name='edit_clinical_log'),
+    path('delete/clinical_log/<int:pk>', del_clinical_log, name='delete_clinical_log'),
+
+    path('add/shelter/<int:pk>', new_shelter, name='create_shelter'),
+    path('edit/shelter/<int:pk>', update_shelter, name='edit_shelter'),
+    path('delete/shelter/<int:pk>', del_shelter, name='delete_shelter'),
 ]

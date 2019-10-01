@@ -49,17 +49,21 @@ class ClinicalLog(models.Model):
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name="Animal")
     date = models.DateField(verbose_name="Data")
 
+    def __str__(self):
+        return self.clinical_condition
+
 
 class Shelter(models.Model):
     SHELTER_CHOICES = [
         ('Temporário', 'Temporário'),
         ('Adoção', 'Adoção')
     ]
-    person = None
+
+    person = models.ForeignKey('contacts.Contact', on_delete=models.PROTECT, verbose_name="Pessoa")
     animal = models.ForeignKey(Animal, on_delete=models.CASCADE, verbose_name="Animal")
     category = models.CharField(max_length=10, choices=SHELTER_CHOICES, verbose_name="Categoria")
     date_entry = models.DateField(verbose_name="Data Entrada")
     date_exit = models.DateField(null=True, blank=True, verbose_name="Data Saída")
 
     def __str__(self):
-        return self.animal.name + " - " + str(self.date_entry)
+        return self.person.person.name + " <- " + self.animal.name + " - " + str(self.date_entry)
