@@ -38,6 +38,11 @@
                 <td class="align-middle">{{object.created_at}}</td>
                 <td class="text-center align-middle">
                     {% if user.is_admin %}
+                        <a href="{% url 'events:edit_event' object.id %}" class="btn btn-success" title="Editar">
+                            <span style="font-size: 1em; color: #f0f0f0">
+                                <i class="fas fa-pencil-alt"></i>
+                            </span>
+                        </a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
                             <span style="font-size: 1em; color: #f0f0f0">
                                 <i class="fas fa-trash-alt"></i>

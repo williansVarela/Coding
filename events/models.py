@@ -8,8 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 class Event(models.Model):
     local = models.CharField(max_length=100, null=True, verbose_name='Local')
-    start_date = models.DateTimeField(null=True, blank=True, verbose_name='Data de início')
-    end_date = models.DateTimeField(null=True, blank=True, verbose_name='Data de termino')
+    start_date = models.DateField(null=True, blank=True, verbose_name='Data de início')
+    end_date = models.DateField(null=True, blank=True, verbose_name='Data de termino')
     schedule = models.CharField(max_length=10, verbose_name='Horário')
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
     _FREQUENCY_CHOICES = (('diário', "Diário"), ('semanal', "Semanal"), ('mensal', "Mensal"), ('anual', "Anual"), ('único', "Único"),)

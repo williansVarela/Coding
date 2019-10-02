@@ -13,6 +13,17 @@ class AddressForm(AddressForm):
 
 
 class EventForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(EventForm, self).__init__(*args, **kwargs)
+
+        self.fields['local'].widget.attrs = {'class': 'form-control', 'placeholder': 'Local do evento'}
+        self.fields['start_date'].widget.attrs = {'class': 'form-control', 'placeholder': '29/06/2019'}
+        self.fields['end_date'].widget.attrs = {'class': 'form-control', 'placeholder': '9/11/2019'}
+        self.fields['schedule'].widget.attrs = {'class': 'form-control', 'placeholder': '15h00'}
+        self.fields['frequency'].widget.attrs = {'class': 'form-control'}
+        self.fields['type_event'].widget.attrs = {'class': 'form-control'}
+
     class Meta:
         model = Event
         exclude = ('address',)

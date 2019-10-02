@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="col-md-8"> <!-- <div class="col-md-8 mx-auto"> -->
-    <h2>Editar Contato</h2>
+    <h2>Editar Evento</h2>
 
     {% if messages %}
         {% for message in messages %}
@@ -18,51 +18,60 @@
 
     <form method="post" role="form">
         {% csrf_token %}
-        {{ person_form.non_field_errors }}
+
+        <!-- Event Form -->
+        {{ event_form.non_field_errors }}
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <p>
+                    <label for="id_name">Local:</label>
+                    {{ event_form.local.errors }}
+                    {{ event_form.local }}
+                </p>
+            </div>
+            <div class="form-group col-md-3">
+                <p>
+                    <label for="id_email">Data de início:</label>
+                    {{ event_form.start_date.errors }}
+                    {{ event_form.start_date }}
+                </p>
+            </div>
+            <div class="form-group col-md-3">
+                <p>
+                    <label for="id_phone">Data de termino:</label>
+                    {{ event_form.end_date.errors }}
+                    {{ event_form.end_date }}
+                </p>
+            </div>
+        </div>
+
 
         <div class="form-row">
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-4">
                 <p>
-                    <label for="id_name">Nome completo:</label>
-                    {{ person_form.name.errors }}
-                    {{ person_form.name }}
+                    <label for="id_name">Data de termino:</label>
+                    {{ event_form.schedule.errors }}
+                    {{ event_form.schedule }}
                 </p>
             </div>
             <div class="form-group col-md-4">
                 <p>
-                    <label for="id_email">E-mail:</label>
-                    {{ person_form.email.errors }}
-                    {{ person_form.email }}
+                    <label for="id_email">Horário:</label>
+                    {{ event_form.frequency.errors }}
+                    {{ event_form.frequency }}
                 </p>
             </div>
-            <div class="form-group col-md-3">
-                {{ contact_form.non_field_errors }}
+            <div class="form-group col-md-4">
                 <p>
-                    <label for="id_phone">Telefone:</label>
-                    {{ contact_form.phone.errors }}
-                    {{ contact_form.phone }}
-                </p>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <p>
-                    <label for="id_is_adopter">Adotou animal?</label>
-                    {{ contact_form.is_adopter.errors }}
-                    {{ contact_form.is_adopter }}
-                </p>
-            </div>
-            <div class="form-group col-md-6">
-                <p>
-                    <label for="id_type">Tipo de contato:</label>
-                    {{ contact_form.type.errors }}
-                    {{ contact_form.type }}
+                    <label for="id_phone">Frequência:</label>
+                    {{ event_form.type_event.errors }}
+                    {{ event_form.type_event }}
                 </p>
             </div>
         </div>
 
-
-
+        <!-- Adress Form -->
+        {{ address_form.non_field_errors }}
         <div class="form-row">
             <div class="form-group col-md-5">
                 <p>

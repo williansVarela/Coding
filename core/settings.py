@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',
     'animal',
     'events',
+    'events.events_register',
     'contacts',
     'contacts.contacts_register',
     'volunteers',
