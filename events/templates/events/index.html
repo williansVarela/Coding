@@ -13,6 +13,10 @@
         {% endfor %}
     {% endif %}
 
+    <a href="{% url 'events:create_event' %}">
+        <button type="button" class="btn btn-info">Novo Evento</button>
+    </a>
+
     <thead>
         <tr>
             <th>Local</th>
@@ -33,24 +37,13 @@
                 <td class="align-middle">{{object.type_event}}</td>
                 <td class="align-middle">{{object.created_at}}</td>
                 <td class="text-center align-middle">
-
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#object_{{object.id}}_info" role="button" title="Informações">
-                        <span style="font-size: 1em; color: #f0f0f0">
-                            <i class="fas fa-eye"></i>
-                        </span>
-                    </button>
-
-                    <a href="{% url 'contacts:edit_contact' object.id %}" class="btn btn-success" title="Editar">
-                        <span style="font-size: 1em; color: #f0f0f0">
-                            <i class="fas fa-pencil-alt"></i>
-                        </span>
-                    </a>
-
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
-                        <span style="font-size: 1em; color: #f0f0f0">
-                            <i class="fas fa-trash-alt"></i>
-                        </span>
-                    </button>
+                    {% if user.is_admin %}
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
+                            <span style="font-size: 1em; color: #f0f0f0">
+                                <i class="fas fa-trash-alt"></i>
+                            </span>
+                        </button>
+                    {% endif%}
                 </td>
             </tr>
 
