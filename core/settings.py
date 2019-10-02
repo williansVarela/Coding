@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # New Apps
     'core',
     'animal',
+    'events',
     'contacts',
     'contacts.contacts_register',
     'volunteers',

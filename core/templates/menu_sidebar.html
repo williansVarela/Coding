@@ -28,22 +28,8 @@
                 <li>
                     <a href="{% url 'animals:create_animal' %}">Criar Novo Animal</a>
                 </li>
-            </ul>
-        </li>
-        <li class={{volunteers_active}}>
-            <a href="#volunteersSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-hands-helping"></i>
-                <span class="toggle">Voluntários</span>
-            </a>
-            <ul class="collapse list-unstyled" id="volunteersSubmenu">
                 <li>
-                    <a href="#">Page 1</a>
-                </li>
-                <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
+                    <a href="{% url 'events:home' %}">Eventos de Adoção</a>
                 </li>
             </ul>
         </li>

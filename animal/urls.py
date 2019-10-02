@@ -1,16 +1,7 @@
 from django.urls import path
-from animal.views import (animal,
-                          new_animal,
-                          update_animal,
-                          del_animal,
-                          new_species_popup,
-                          new_breed_popup,
-                          new_clinical_log,
-                          update_clinical_log,
-                          del_clinical_log,
-                          new_shelter,
-                          update_shelter,
-                          del_shelter, )
+from animal.adoption_event.views import IndexView
+from animal.views import (animal, new_animal, update_animal, del_animal, new_species_popup, new_breed_popup,
+                          new_clinical_log, update_clinical_log, del_clinical_log, new_shelter, update_shelter, del_shelter, )
 
 
 app_name = 'animals'
@@ -31,4 +22,6 @@ urlpatterns = [
     path('add/shelter/<int:pk>', new_shelter, name='create_shelter'),
     path('edit/shelter/<int:pk>', update_shelter, name='edit_shelter'),
     path('delete/shelter/<int:pk>', del_shelter, name='delete_shelter'),
+
+    path('events', IndexView.as_view(), name='events'),
 ]

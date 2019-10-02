@@ -1,0 +1,94 @@
+{% extends 'base_list.html' %}
+{% load static %}
+
+{% block table_content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <thead>
+        <tr>
+            <th>Local</th>
+            <th class="text-center">Horário</th>
+            <th class="text-center">Frequência</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Data de Registro</th>
+            <th class="text-center" style="width: 18%">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for object in events %}
+            <tr>
+                <td class="align-middle">{{object.local}}</td>
+                <td class="align-middle">{{object.schedule}}</td>
+                <td class="align-middle">{{object.frequency}}</td>
+                <td class="align-middle">{{object.type_event}}</td>
+                <td class="align-middle">{{object.created_at}}</td>
+                <td class="text-center align-middle">
+
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#object_{{object.id}}_info" role="button" title="Informações">
+                        <span style="font-size: 1em; color: #f0f0f0">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </button>
+
+                    <a href="{% url 'contacts:edit_contact' object.id %}" class="btn btn-success" title="Editar">
+                        <span style="font-size: 1em; color: #f0f0f0">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                    </a>
+
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#object_{{object.id}}_modal" role="button" title="Remover">
+                        <span style="font-size: 1em; color: #f0f0f0">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </button>
+                </td>
+            </tr>
+
+            {% include confirm_modal %}
+
+            <!-- Full Info Modal -->
+            <div class="modal fade" id="object_{{object.id}}_info" role="dialog">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Evento - {{ object.local }}</h3>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <b>Endereço:</b>
+                            <br>
+                            {{ object.address.city }}, {{ object.address.state }} - CEP {{ object.address.zipcode }}
+                            <br>
+                            {{ object.address.address }}, {{ object.address.number }} {% if object.address.complement %}- {{ object.address.complement }} {% endif %}
+                            <br>
+                            {{ object.address.district }}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'contacts:edit_contact' object.id %}">
+                            <button type="button" class="btn btn-success">Editar</button>
+                        </a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+    </tbody>
+
+{% endblock %}
+
+{% block table_addional_configuration %}
+    "order": [[ 4, 'desc' ]]
+{% endblock %}
