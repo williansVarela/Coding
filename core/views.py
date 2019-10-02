@@ -15,7 +15,7 @@ from django.contrib.auth import get_user_model
 from django.utils.decorators import method_decorator
 from donation.models import Donation
 from finance.models import Expense
-from animal.models import Shelter
+from animal.models import Shelter, Animal
 from django.db.models import Sum, Count
 
 
@@ -63,6 +63,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         context['page_title'] = 'Home | Sistema de Gestão'
         context['home_active'] = 'active'
         context['donations'] = Donation.objects.all()
+        context['animals'] = Animal.objects.all()
         context['total_donations'] = Donation.objects.aggregate(Sum('amount'))
         context['finances'] = Expense.objects.all()
         context['total_finance'] = Expense.objects.aggregate(Sum('amount'))

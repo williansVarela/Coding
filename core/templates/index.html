@@ -142,7 +142,7 @@
     </div>
     
     <div class="splitter"></div>
-
+{{animals.0.species}}
     <h3>Bem-vindo, {{ user.name }}.</h3>
 
     <div id="container-graficos">
@@ -220,9 +220,15 @@
             animal_data.addColumn('string', 'AnimalType');
             animal_data.addColumn('number', 'Qtd');
             
-            animal_data.addRow(['Gatos', 37]);
-            animal_data.addRow(['Cães', 61]);
-            animal_data.addRow(['Outros', 6]);
+            {% for animal in animals %}
+                animal_data.addRow(["{{animal.species}}", 1]);
+            {% endfor %}
+
+            var animal_data_grouped = google.visualization.data.group(animal_data, 
+                [0], 
+                [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
+            );
+
             var animalsChartOptions = {
                 title:'Animais para adoção',
                 titleTextStyle: {
@@ -244,24 +250,9 @@
             donations_data.addColumn('date', 'Data');
             donations_data.addColumn('number', 'Doações');
            
-            donations_data.addRow([new Date(2019, 05, 27), 230]);
-            donations_data.addRow([new Date(2019, 05, 12), 180]);
-            donations_data.addRow([new Date(2019, 05, 02), 50]);
-            donations_data.addRow([new Date(2019, 05, 23), 50]);
-            donations_data.addRow([new Date(2019, 05, 20), 78]);
-            donations_data.addRow([new Date(2019, 6, 05), 80]);
-            donations_data.addRow([new Date(2019, 6, 11), 35]);
-            donations_data.addRow([new Date(2019, 6, 14), 80]);
-            donations_data.addRow([new Date(2019, 7, 2), 90]);
-            donations_data.addRow([new Date(2019, 7, 20), 120]);
-            donations_data.addRow([new Date(2019, 8, 17), 130]);
-            donations_data.addRow([new Date(2019, 8, 9), 100]);
-            donations_data.addRow([new Date(2019, 9, 15), 150]);
-            donations_data.addRow([new Date(2019, 9, 22), 210]);
-            donations_data.addRow([new Date(2019, 9, 26), 300]);
-            donations_data.addRow([new Date(2019, 9, 27), 280]);
-            donations_data.addRow([new Date(2019, 9, 29), 240]);
-            donations_data.addRow([new Date(2019, 9, 30), 150]);
+            {% for donation in donations %}
+                donations_data.addRow([new Date("{{donation.created_at|date:'Y-m-d'}}"), parseInt({{donation.amount}})]);
+            {% endfor %}
 
             donations_data.sort([{column: 0}]);
 
@@ -288,14 +279,36 @@
 
 
             // Gráfico de financias
-            var finances_data = new google.visualization.arrayToDataTable([
-            ['Tipo', 'R$'],
-            ["King's pawn", 44],
-            ["Queen's pawn ", 31],
-            ["Knight to King 3", 12],
-            ["Queen's bishop pawn", 10],
-            ['Other', 3]
-            ]);
+            var finances_data = new google.visualization.DataTable();
+            finances_data.addColumn('string', 'Tipo');
+            finances_data.addColumn('number', 'R$');
+
+            {% for finance in finances %}
+                var type = "";
+                {% if finance.expense_type == 'CT' %}
+                    console.log({{'teste'}});
+                    type = 'Conta de Telefone';
+                {% elif finance.expense_type == 'CL' %}
+                    type = 'Conta de Luz';
+                {% elif finance.expense_type == 'CA' %}
+                    type = 'Conta de Água';
+                {% elif finance.expense_type == 'TX' %}
+                    type = 'Taxi';
+                {% elif finance.expense_type == 'VT' %}
+                    type = 'Veterinário';
+                {% elif finance.expense_type == 'RM' %}
+                    type = 'Remédios';
+                {% else %}
+                    type = 'Outros';
+                {% endif %}
+                console.log(type);
+                finances_data.addRow([type, parseInt({{finance.amount}})]);
+            {% endfor %}
+
+            var finances_data_grouped = google.visualization.data.group(finances_data, 
+                [0], 
+                [{'column': 1, 'aggregation': google.visualization.data.sum, 'type': 'number'}]
+            );
 
             var financeChartOptions = {
             title: 'Despesas',
@@ -325,7 +338,7 @@
             
             // Animals Chart
             var chartAnimals = new google.visualization.PieChart(document.getElementById('chart_animals'));
-            chartAnimals.draw(animal_data, animalsChartOptions);
+            chartAnimals.draw(animal_data_grouped, animalsChartOptions);
             
             // Donations Chart
             var chartDonations = new google.visualization.LineChart(document.getElementById('chart_donations'));
@@ -333,7 +346,7 @@
 
             // Finance Chart
             var chartFinance = new google.visualization.ColumnChart(document.getElementById('chart_finance'));
-            chartFinance.draw(finances_data, financeChartOptions);
+            chartFinance.draw(finances_data_grouped, financeChartOptions);
         }
     </script>
 
