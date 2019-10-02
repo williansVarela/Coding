@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('local', models.CharField(max_length=100, null=True, verbose_name='Local')),
-                ('start_date', models.DateTimeField(blank=True, null=True, verbose_name='Data de início')),
-                ('end_date', models.DateTimeField(blank=True, null=True, verbose_name='Data de termino')),
+                ('start_date', models.DateField(blank=True, null=True, verbose_name='Data de início')),
+                ('end_date', models.DateField(blank=True, null=True, verbose_name='Data de termino')),
                 ('schedule', models.CharField(max_length=10, verbose_name='Horário')),
                 ('frequency', models.CharField(blank=True, choices=[('diário', 'Diário'), ('semanal', 'Semanal'), ('mensal', 'Mensal'), ('anual', 'Anual'), ('único', 'Único')], default='adoção', max_length=30, null=True, verbose_name='Frequência')),
                 ('type_event', models.CharField(blank=True, choices=[('adoção', 'Adoção')], default='adoção', max_length=30, null=True, verbose_name='Tipo de evento')),
