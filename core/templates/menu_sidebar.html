@@ -28,8 +28,19 @@
                 <li>
                     <a href="{% url 'animals:create_animal' %}">Criar Novo Animal</a>
                 </li>
+            </ul>
+        </li>
+        <li class={{events_active}}>
+            <a href="#eventSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="toggle">Eventos</span>
+            </a>
+            <ul class="collapse list-unstyled" id="eventSubmenu">
                 <li>
-                    <a href="{% url 'events:home' %}">Eventos de Adoção</a>
+                    <a href="{% url 'events:home' %}">Ver Eventos</a>
+                </li>
+                <li>
+                    <a href="{% url 'events:create_event' %}">Registrar Evento</a>
                 </li>
             </ul>
         </li>
