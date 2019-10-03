@@ -14,7 +14,7 @@ class Event(models.Model):
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
     _FREQUENCY_CHOICES = (('diário', "Diário"), ('semanal', "Semanal"), ('mensal', "Mensal"), ('anual', "Anual"), ('único', "Único"),)
     frequency = models.CharField(max_length=30, default='adoção', null=True, blank=True, choices=_FREQUENCY_CHOICES, verbose_name='Frequência')
-    _TYPE_EVENT_CHOICES = (('adoção', "Adoção"),)
+    _TYPE_EVENT_CHOICES = (('adoção', "Adoção"),('outros', "Outros"),)
     type_event = models.CharField(max_length=30, default='adoção', null=True, blank=True, choices=_TYPE_EVENT_CHOICES, verbose_name='Tipo de evento')
 
     # Timestamps
