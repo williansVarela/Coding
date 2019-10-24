@@ -1,6 +1,7 @@
 {% extends 'base_list.html' %}
 {% load static %}
 
+
 {% block table_content %}
     {% if messages %}
         {% for message in messages %}
@@ -31,7 +32,7 @@
                 <td class="align-middle">{{object.schedule}}</td>
                 <td class="align-middle">{{object.frequency}}</td>
                 <td class="align-middle">{{object.type_event}}</td>
-                <td class="align-middle">{{object.created_at}}</td>
+                <td class="align-middle">{{object.created_at|date:'d/m/Y' }}</td>
                 <td class="text-center align-middle">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#object_{{object.id}}_info" role="button" title="Informações">
                         <span style="font-size: 1em; color: #f0f0f0">
