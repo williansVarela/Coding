@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 
 {% block extra_css %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/fc-3.3.0/sl-1.3.1/datatables.min.css"/>
 {% endblock %}
 
 {% block content %}
@@ -21,9 +20,9 @@
 {% endblock %}
 
 {% block js %}
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.3.1/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/fc-3.3.0/sl-1.3.1/datatables.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 
@@ -54,7 +53,12 @@
                     "sSortDescending": ": Ordenar colunas de forma descendente"
                 }
             },
-            "pageLength": {% if items_per_page %}{{items_per_page}}{% else %}10{% endif %},
+            {% if scrollY %}scrollY: {{scrollY}},{% else %}{% endif %}
+            scrollX: true,
+            paging: {% if paging %}{{paging}}{% else %}true{% endif %},
+            pageLength: {% if items_per_page %}{{items_per_page}}{% else %}10{% endif %},
+            lengthMenu: {% if lengthMenu %} {{lengthMenu}} {% else %}[[10, 25, 50, -1], [10, 25, 50, "Tudo"]]{% endif %},
+            fixedColumns: {% if fixedColumns %}{{fixedColumns}}{% else %}false{% endif %},
             {% block table_addional_configuration %}
             {% endblock %}
           });
