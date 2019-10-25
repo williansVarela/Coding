@@ -18,12 +18,17 @@ class EventForm(ModelForm):
         super(EventForm, self).__init__(*args, **kwargs)
 
         self.fields['local'].widget.attrs = {'class': 'form-control', 'placeholder': 'Local do evento'}
-        self.fields['start_date'].widget.attrs = {'class': 'form-control', 'placeholder': 'xx/xx/xxxx'}
+        self.fields['local'].required = True
+        self.fields['start_date'].widget.attrs = {'class': 'form-control', 'placeholder': 'DD/MM/AAAA'}
+        self.fields['start_date'].required = True
         self.fields['end_date'].widget.attrs = {'class': 'form-control', 'placeholder': 'opcional'}
         self.fields['end_date'].required = False
-        self.fields['schedule'].widget.attrs = {'class': 'form-control', 'placeholder': 'Ex: 15h00'}
+        self.fields['schedule'].widget.attrs = {'class': 'form-control', 'placeholder': 'Ex: 15:30'}
+        self.fields['schedule'].required = True
         self.fields['frequency'].widget.attrs = {'class': 'form-control'}
+        self.fields['frequency'].required = True
         self.fields['type_event'].widget.attrs = {'class': 'form-control'}
+        self.fields['type_event'].required = True
 
     class Meta:
         model = Event

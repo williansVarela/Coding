@@ -23,50 +23,47 @@
         {{ event_form.non_field_errors }}
         <div class="form-row">
             <div class="form-group col-md-6">
-                <p>
-                    <label for="id_name">Local:</label>
-                    {{ event_form.local.errors }}
-                    {{ event_form.local }}
-                </p>
+                <label for="id_name">Local:</label>
+                {{ event_form.local }}
             </div>
             <div class="form-group col-md-3">
-                <p>
-                    <label for="id_email">Data de início:</label>
-                    {{ event_form.start_date.errors }}
+                <label for="id_email">Data de início:</label>
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                     {{ event_form.start_date }}
-                </p>
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                    </div>
+                </div>
             </div>
             <div class="form-group col-md-3">
-                <p>
-                    <label for="id_phone">Data de termino:</label>
-                    {{ event_form.end_date.errors }}
+                <label for="id_phone">Data de termino:</label>
+                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
                     {{ event_form.end_date }}
-                </p>
+                    <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                    </div>
+                </div>
             </div>
         </div>
 
 
         <div class="form-row">
             <div class="form-group col-md-4">
-                <p>
-                    <label for="id_name">Horário:</label>
-                    {{ event_form.schedule.errors }}
+                <label for="id_name">Horário:</label>
+                <div class="input-group date" id="timepicker" data-target-input="nearest">
                     {{ event_form.schedule }}
-                </p>
+                    <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fas fa-clock"></i></i></div>
+                    </div>
+                </div>
             </div>
             <div class="form-group col-md-4">
-                <p>
-                    <label for="id_email">Frequência:</label>
-                    {{ event_form.frequency.errors }}
-                    {{ event_form.frequency }}
-                </p>
+                <label for="id_email">Frequência:</label>
+                {{ event_form.frequency }}
             </div>
             <div class="form-group col-md-4">
-                <p>
-                    <label for="id_phone">Tipo:</label>
-                    {{ event_form.type_event.errors }}
-                    {{ event_form.type_event }}
-                </p>
+                <label for="id_phone">Tipo:</label>
+                {{ event_form.type_event }}
             </div>
         </div>
 
@@ -74,57 +71,50 @@
         {{ address_form.non_field_errors }}
         <div class="form-row">
             <div class="form-group col-md-5">
-                <p>
-                    <label for="inputCity">Município:</label>
-                    {{ address_form.city.errors }}
-                    {{ address_form.city }}
-                </p>
+                <label for="inputCity">Município:</label>
+                {{ address_form.city }}
             </div>
             <div class="form-group col-md-4">
-                <p>
-                    <label for="inputState">Estado:</label>
-                    {{ address_form.state.errors }}
-                    {{ address_form.state }}
-                </p>
+                <label for="inputState">Estado:</label>
+                {{ address_form.state }}
             </div>
             <div class="form-group col-md-3">
-                <p>
-                    <label for="inputZip">CEP:</label>
-                    {{ address_form.zipcode.errors }}
-                    {{ address_form.zipcode }}
-                </p>
+                <label for="inputZip">CEP:</label>
+                {{ address_form.zipcode }}
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
-                <p>
-                    <label for="inputCity">Endereço:</label>
-                    {{ address_form.address.errors }}
-                    {{ address_form.address }}
-                </p>
+                <label for="inputCity">Endereço:</label>
+                {{ address_form.address }}
             </div>
             <div class="form-group col-md-3">
-                <p>
-                    <label for="inputState">Bairro:</label>
-                    {{ address_form.district.errors }}
-                    {{ address_form.district }}
-                </p>
+                <label for="inputState">Bairro:</label>
+                {{ address_form.district }}
             </div>
             <div class="form-group col-md-2">
-                <p>
-                    <label for="inputZip">Número:</label>
-                    {{ address_form.number.errors }}
-                    {{ address_form.number }}
-                </p>
+                <label for="inputZip">Número:</label>
+                {{ address_form.number }}
             </div>
             <div class="form-group col-md-3">
-                <p>
-                    <label for="inputZip">Complemento:</label>
-                    {{ address_form.complement.errors }}
-                    {{ address_form.complement }}
-                </p>
+                <label for="inputZip">Complemento:</label>
+                {{ address_form.complement }}
             </div>
         </div>
+
+        {{ event_form.local.errors }}
+        {{ event_form.start_date.errors }}
+        {{ event_form.end_date.errors }}
+        {{ event_form.schedule.errors }}
+        {{ event_form.frequency.errors }}
+        {{ event_form.type_event.errors }}
+        {{ address_form.city.errors }}
+        {{ address_form.state.errors }}
+        {{ address_form.zipcode.errors }}
+        {{ address_form.address.errors }}
+        {{ address_form.district.errors }}
+        {{ address_form.number.errors }}
+        {{ address_form.complement.errors }}
 
         <button type="submit" id="btn-send" class="btn btn-primary">Criar</button>
 

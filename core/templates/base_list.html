@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="container" style="width: 90%">
-    <table id="main_table" class="table table-striped table-bordered">
+    <table id="main_table" class="table table-striped table-bordered" style="width: 100%">
         {% block table_content %}
 
         {% endblock %}
@@ -23,7 +23,6 @@
 
 {% block js %}
     <script type="text/javascript" src="{% static 'datatable/datatables.min.js' %}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 
     <script type="text/javascript">

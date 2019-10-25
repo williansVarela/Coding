@@ -2,24 +2,53 @@
             
 {% block content %}
 
-    <h2>Alterar Perfil</h2>
+<div class="col-md-6"> <!-- <div class="col-md-6 mx-auto"> -->
+    <h2>Atualizar Usuário</h2>
 
     <form method="post" role="form">
         {% csrf_token %}
-        <div class="col-md-6">
-            {{ form.as_p }}
+
+        {{ form.non_field_errors }}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="id_email">E-mail:</label>
+                {{ form.email }}
+            </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-8">
+                <label for="id_name">Nome completo:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group col-md-4">
+                {{ contact_form.non_field_errors }}
+                <label for="id_phone">Data de Nasc.:</label>
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    {{ form.date_of_birth }}
+                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fas fa-calendar-alt"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ form.email.errors }}
+        {{ form.name.errors }}
+        {{ form.date_of_birth.errors }}
+
         {% if messages %}
             {% for message in messages %}
                 <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
                     {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             {% endfor %}
         {% endif %}
 
-        <div class="col-md-6">
-            <button type="submit" id="btn-send" class="btn btn-primary">Atualizar</button>
-        </div>
-    </form>
+        <button type="submit" id="btn-send" class="btn btn-primary">Atualizar</button>
 
+    </form>
+</div>
 {% endblock %}
