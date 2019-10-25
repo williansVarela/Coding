@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load number_format %}
 {% now 'Y-m' as current_month %}
 {% now 'Y' as current_year %}
 
@@ -99,7 +100,7 @@
                         </div>
                         <div class="col-7 col-md-8">
                             <div class="numbers">
-                                <p class="card-category">Doações</p><p class="card-title">R${{total_donations.amount__sum|intcomma}}</p><p></p>
+                                <p class="card-category">Doações</p><p class="card-title">{{total_donations.amount__sum|currency}}</p><p></p>
                             </div>
                         </div>
                     </div>
@@ -125,7 +126,7 @@
                         </div>
                         <div class="col-7 col-md-8">
                             <div class="numbers">
-                                <p class="card-category">Despesas</p><p class="card-title">R${{total_finance.amount__sum|intcomma}}</p><p></p>
+                                <p class="card-category">Despesas</p><p class="card-title">{{total_finance.amount__sum|currency}}</p><p></p>
                             </div>
                         </div>
                     </div>
