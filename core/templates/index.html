@@ -25,8 +25,10 @@
             display: -webkit-flex; /* Safari */
         }
 
-        #grafico {
-            border-radius: 5px;
+        .chart {
+            width: 100%;
+            min-height: 20em;
+            margin-bottom: 20px;
         }
     
        
@@ -145,26 +147,33 @@
     
     <div class="splitter"></div>
 
-    <h3>Bem-vindo, {{ user.name }}.</h3>
+    <h5 class="welcome-message">Bem-vindo, {{ user.name }}.</h5>
 
-    <div id="container-graficos">
-        <div class="card-stats card" style="width: 35%; height: 20em">
-            <div class="card-body">
-                    <h5 class="text-center">Agenda da Semana</h5>
-                    <div class="line"></div>
-                    <p>Lorem Ipsum Dolor</p>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-4">
+            <div class="card-stats card" style="height: 20em">
+                <div class="card-body">
+                        <h5 class="text-center">Agenda da Semana</h5>
+                        <div class="line"></div>
+                        <p>Lorem Ipsum Dolor</p>
+                </div>
             </div>
         </div>
+        <div class="col-sm-6 col-md-6 col-lg-4">
+            <div id="chart_animals" class="chart"></div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-4">
+            <div id="chart_finance" class="chart"></div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-8">
+            <div id="chart_donations" class="chart"></div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-4">
 
-
-        <div id="chart_donations" class="grafico" style="width: 62%; height: 20em;"></div>
-        <div id="chart_donations" class="grafico" style="width: 96%; height: 20em;"></div>
+        </div>
     </div>
 
-    <div id="container-graficos">
-        <div id="chart_animals" class="grafico" style="width: 48%; height: 25em"></div>
-        <div id="chart_finance" class="grafico" style="width: 48%; height: 25em;"></div>
-    </div>
+
 
 {% endblock %}
 
@@ -233,6 +242,7 @@
 
             var animalsChartOptions = {
                 title:'Animais para adoção',
+                legend: { position: 'bottom' },
                 titleTextStyle: {
                     color: '#E68C00',
                     fontSize: 20,
@@ -350,6 +360,10 @@
             var chartFinance = new google.visualization.ColumnChart(document.getElementById('chart_finance'));
             chartFinance.draw(finances_data_grouped, financeChartOptions);
         }
+
+        $(window).resize(function(){
+          drawChart();
+        });
     </script>
 
 {% endblock %}

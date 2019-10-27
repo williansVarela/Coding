@@ -25,7 +25,7 @@ a:focus {
 }
 
 .navbar {
-    padding: 15px 10px;
+    padding: 5px 10px;
     background: #fff;
     border: none;
     border-radius: 0;
@@ -53,7 +53,11 @@ a:focus {
     margin: 0px 0px 20px;
 }
 
-
+.form-base{
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
 
 i,
 span {
@@ -225,6 +229,16 @@ a.article:hover {
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
+@media (max-width: 1024px) {
+    h2{
+        font-size: 1.5rem;
+    }
+    .form-base{
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
 
 @media (max-width: 768px) {
     #sidebar {
@@ -271,10 +285,24 @@ a.article:hover {
         margin-left: 0;
     }
     #sidebarCollapse span {
-        display: none;
+        display: inline;
+    }
+    .form-base{
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
 
+@media (max-width: 480px) {
+    h2{
+        font-size: 1rem;
+    }
+    .welcome-message{
+        text-align: center !important;
+        padding-bottom: 1rem;
+    }
+}
 /* ---------------------------------------------------
     MODAL STYLE
 ----------------------------------------------------- */

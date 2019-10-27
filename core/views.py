@@ -59,7 +59,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['pagina'] = 'Dashboard'
+        context['pagina'] = 'Home'
         context['page_title'] = 'Home | Dashboard'
         context['home_active'] = 'active'
         context['donations'] = Donation.objects.all()
