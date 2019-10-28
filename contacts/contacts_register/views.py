@@ -96,9 +96,10 @@ def edit_contact(request, pk):
             return redirect('contacts:home')
         else:
             messages.error(request, 'Por favor corrija os erros abaixo para continuar.', extra_tags='alert alert-danger alert-dismissible fade show')
+            context['address_form'] = address_form
+            context['person_form'] = person_form
+            context['contact_form'] = contact_form
     else:
-
-
         address_form = AddressForm(instance=address)
         person_form = PersonForm(instance=person)
         contact_form = ContactForm(instance=contact)

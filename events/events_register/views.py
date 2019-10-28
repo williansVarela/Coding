@@ -83,6 +83,8 @@ def edit_event(request, pk):
             return redirect('events:home')
         else:
             messages.error(request, 'Por favor corrija os erros abaixo para continuar.', extra_tags='alert alert-danger alert-dismissible fade show')
+            context['address_form'] = address_form
+            context['event_form'] = event_form
     else:
         address_form = AddressForm(instance=address)
         event_form = EventForm(instance=event)
