@@ -30,15 +30,16 @@ def register_contact(request):
 
             return redirect('contacts:create_contact')
         else:
-            messages.error(request, 'Por favor corrija o erro acima para continuar.', extra_tags='alert alert-danger alert-dismissible fade show')
+            messages.error(request, 'Por favor corrija os erros abaixo para continuar.', extra_tags='alert alert-danger alert-dismissible fade show')
     else:
         address_form = AddressForm()
         person_form = PersonForm()
         contact_form = ContactForm()
 
     context = {'pagina': 'Admin', 'page_title': 'Admin | Registrar Usuário', 'contacts_active': 'active',
-               'address_form': address_form, 'person_form': person_form, 'contact_form': contact_form}
-    return render(request, 'contacts/contacts_register/create_contact.html', context)
+               'button': 'Criar', 'title': 'Criar Novo Contato', 'address_form': address_form,
+               'person_form': person_form, 'contact_form': contact_form}
+    return render(request, 'contacts/contacts_register/contact_form.html', context)
 
 
 @login_required
@@ -111,8 +112,10 @@ def edit_contact(request, pk):
     context['pagina'] = 'Contatos'
     context['page_title'] = 'Contatos | Editar infomações'
     context['contacts_active'] = 'active'
+    context['button'] = 'Atualizar'
+    context['title'] = 'Editar Contato'
 
-    return render(request, 'contacts/contacts_register/edit_contact.html', context)
+    return render(request, 'contacts/contacts_register/contact_form.html', context)
 
 
 class UpdateContact(LoginRequiredMixin, UpdateView):
@@ -128,6 +131,8 @@ class UpdateContact(LoginRequiredMixin, UpdateView):
         context['pagina'] = 'Contatos'
         context['page_title'] = 'Contatos | Editar Informações'
         context['contacts_active']: 'active'
+        context['button'] = 'Atualizar'
+        context['title'] = 'Editar Contato'
 
         return context
 
@@ -175,7 +180,7 @@ class UpdateContact(LoginRequiredMixin, UpdateView):
                              extra_tags='alert alert-success alert-dismissible fade show')
             return redirect('contacts:create_contact')
         else:
-            messages.error(request, 'Por favor corrija o erro acima para continuar.',
+            messages.error(request, 'Por favor corrija os erros abaixo para continuar.',
                            extra_tags='alert alert-danger alert-dismissible fade show')
 
         return redirect(reverse_lazy("contacts:home"))
