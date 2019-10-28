@@ -61,8 +61,37 @@
             </div>
         </div>
 
-
-
+        <!-- Adress Form -->
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <p>
+                    <label for="inputCity">Endereço:</label>
+                    {{ address_form.address.errors }}
+                    {{ address_form.address }}
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <p>
+                    <label for="inputZip">Número:</label>
+                    {{ address_form.number.errors }}
+                    {{ address_form.number }}
+                </p>
+            </div>
+            <div class="form-group col-md-3">
+                <p>
+                    <label for="inputState">Bairro:</label>
+                    {{ address_form.district.errors }}
+                    {{ address_form.district }}
+                </p>
+            </div>
+            <div class="form-group col-md-3">
+                <p>
+                    <label for="inputZip">Complemento:</label>
+                    {{ address_form.complement.errors }}
+                    {{ address_form.complement }}
+                </p>
+            </div>
+        </div>
         <div class="form-row">
             <div class="form-group col-md-5">
                 <p>
@@ -83,36 +112,6 @@
                     <label for="inputZip">CEP:</label>
                     {{ address_form.zipcode.errors }}
                     {{ address_form.zipcode }}
-                </p>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <p>
-                    <label for="inputCity">Endereço:</label>
-                    {{ address_form.address.errors }}
-                    {{ address_form.address }}
-                </p>
-            </div>
-            <div class="form-group col-md-3">
-                <p>
-                    <label for="inputState">Bairro:</label>
-                    {{ address_form.district.errors }}
-                    {{ address_form.district }}
-                </p>
-            </div>
-            <div class="form-group col-md-2">
-                <p>
-                    <label for="inputZip">Número:</label>
-                    {{ address_form.number.errors }}
-                    {{ address_form.number }}
-                </p>
-            </div>
-            <div class="form-group col-md-3">
-                <p>
-                    <label for="inputZip">Complemento:</label>
-                    {{ address_form.complement.errors }}
-                    {{ address_form.complement }}
                 </p>
             </div>
         </div>

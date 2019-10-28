@@ -70,6 +70,24 @@
         <!-- Adress Form -->
         {{ address_form.non_field_errors }}
         <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="inputCity">Endereço:</label>
+                {{ address_form.address }}
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Número:</label>
+                {{ address_form.number }}
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputState">Bairro:</label>
+                {{ address_form.district }}
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputZip">Complemento:</label>
+                {{ address_form.complement }}
+            </div>
+        </div>
+        <div class="form-row">
             <div class="form-group col-md-5">
                 <label for="inputCity">Município:</label>
                 {{ address_form.city }}
@@ -81,24 +99,6 @@
             <div class="form-group col-md-3">
                 <label for="inputZip">CEP:</label>
                 {{ address_form.zipcode }}
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label for="inputCity">Endereço:</label>
-                {{ address_form.address }}
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputState">Bairro:</label>
-                {{ address_form.district }}
-            </div>
-            <div class="form-group col-md-2">
-                <label for="inputZip">Número:</label>
-                {{ address_form.number }}
-            </div>
-            <div class="form-group col-md-3">
-                <label for="inputZip">Complemento:</label>
-                {{ address_form.complement }}
             </div>
         </div>
 
