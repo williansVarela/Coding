@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
-            
+
 {% block content %}
 
-<div class="form-base"> <!-- <div class="col-md-8 mx-auto"> -->
-    <h2>Editar Evento</h2>
+<div class="form-base"> <!-- <div class="col-md-6 mx-auto"> -->
+    <h2>{{ title }}</h2>
 
     {% if messages %}
         {% for message in messages %}
@@ -116,7 +116,7 @@
         {{ address_form.number.errors }}
         {{ address_form.complement.errors }}
 
-        <button type="submit" id="btn-send" class="btn btn-primary">Atualizar</button>
+        <button type="submit" id="btn-send" class="btn btn-primary">{{ button }}</button>
 
     </form>
 </div>

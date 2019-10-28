@@ -33,8 +33,8 @@ def register_event(request):
         event_form = EventForm()
 
     context = {'pagina': 'Eventos', 'page_title': 'Eventos | Registrar Evento', 'events_active': 'active',
-               'address_form': address_form, 'event_form': event_form}
-    return render(request, 'events/events_register/create_event.html', context)
+               'button': 'Criar', 'title': 'Criar Novo Evento', 'address_form': address_form, 'event_form': event_form}
+    return render(request, 'events/events_register/event_form.html', context)
 
 @login_required
 def delete_event(request, pk):
@@ -93,5 +93,7 @@ def edit_event(request, pk):
     context['pagina'] = 'Eventos'
     context['page_title'] = 'Eventos | Editar infomações'
     context['events_active'] = 'active'
+    context['button'] = 'Atualizar'
+    context['title'] = 'Editar Evento'
 
-    return render(request, 'events/events_register/edit_event.html', context)
+    return render(request, 'events/events_register/event_form.html', context)
