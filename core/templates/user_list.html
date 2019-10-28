@@ -3,12 +3,14 @@
 {% block table_content %}
     {% if messages %}
         {% for message in messages %}
-            <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            {% if message.message != "Usuário autenticado com sucesso!" %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %} role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
         {% endfor %}
     {% endif %}
 
